@@ -13,7 +13,7 @@ class proveedor extends Model
         'nit',
         'nombre',
         'direccion',
-        'email',
+        'email', 
         'telefono',
         'ciudad',
         'rut'

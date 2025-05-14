@@ -1,87 +1,56 @@
-
 @extends('adminlte::page')
 
-@section('title', 'Automatic Control')
-
-@section('content_header')
-    <h1>Tablero de trabajo</h1>
-@stop
+@section('title', 'Proveedores')
 
 @section('content')
 
-<div class="row">
-    <div class="col-lg-3 col-6">
-        <div class="small-box bg-success">
-            <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-                <p>Porcentaje de ventas</p>
-            </div>
-            <div class="icon">
-                <i class="fas fa-chart-line"></i>
-            </div>
-            <a href="#" class="small-box-footer">
-                Más info <i class="fas fa-arrow-circle-right"></i>
-            </a>
+
+    
+
+    <main class="container-fluid">
+        <a href="{{ route('proveedores.create') }}" class="btn btn-success mb-3 mt-3">Nuevo Proveedor</a>
+        <div class="table responsive">
+                <table class="table table">
+        <thead class="table table-primary">
+            <tr>
+                <th colspan="9" class="text-center">Proveedores</th>
+            <tr>
+                <th>NIT</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Ciudad</th>
+                <th>RUT</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($proveedores as $proveedor)
+                <tr>
+                    <td>{{ $proveedor->nit }}</td>
+                    <td>{{ $proveedor->nombre }}</td>
+                    <td>{{ $proveedor->direccion }}</td>
+                    <td>{{ $proveedor->email }}</td>
+                    <td>{{ $proveedor->telefono }}</td>
+                    <td>{{ $proveedor->ciudad }}</td>
+                    <td>{{ $proveedor->rut }}</td>
+                    <td>
+                        <a href="{{ route('proveedores.edit', $proveedor->nit) }}" class="btn btn-warning btn-sm">Editar</a>
+                    </td>
+                    <td>
+                        <form action="{{ route('proveedores.destroy', $proveedor->nit) }}" method="POST" style="display:inline;">
+                            @csrf @method('DELETE')
+                            <button class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar proveedor?')">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
         </div>
-    </div>
-
-    <div class="col-lg-3 col-6">
-        <div class="small-box bg-info">
-            <div class="inner">
-                <h3>150</h3>
-                <p>Nuevos usuarios</p>
-            </div>
-            <div class="icon">
-                <i class="fas fa-user-plus"></i>
-            </div>
-            <a href="#" class="small-box-footer">
-                Más info <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-6">
-        <div class="small-box bg-warning">
-            <div class="inner">
-                <h3>44</h3>
-                <p>Órdenes pendientes</p>
-            </div>
-            <div class="icon">
-                <i class="fas fa-shopping-cart"></i>
-            </div>
-            <a href="#" class="small-box-footer">
-                Más info <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-6">
-        <div class="small-box bg-danger">
-            <div class="inner">
-                <h3>65</h3>
-                <p>Tickets abiertos</p>
-            </div>
-            <div class="icon">
-                <i class="fas fa-life-ring"></i>
-            </div>
-            <a href="#" class="small-box-footer">
-                Más info <i class="fas fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
-</div>
 
 
 
-
-
-@stop
-
-@section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-@stop
-
-@section('js')
-
-@stop
+    </main>
+@endsection

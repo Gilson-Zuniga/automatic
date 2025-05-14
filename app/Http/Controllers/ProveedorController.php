@@ -2,74 +2,88 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\proveedor;
 use Illuminate\Http\Request;
+use App\Models\Proveedor;
 
 class ProveedorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Mostrar todos los proveedores.
      */
     public function index()
     {
-        //
-        $proveedores = proveedor::all();
+        $proveedores = Proveedor::all();
         return view('proveedores.index', compact('proveedores'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostrar formulario de creación.
      */
     public function create()
     {
-        //
         return view('proveedores.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guardar nuevo proveedor.
      */
     public function store(Request $request)
     {
-        //
-        Proveedor::create($request->only('nit', 'nombre', 'direccion', 'email', 'telefono', 'ciudad', 'rut'));
-        return redirect()->route('proveedores.index')->with('success', 'Proveedor creado exitosamente.');
+        $request->validate([
+            'nit' => 'required|string|max:20|unique:proveedores,nit',
+            'nombre' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'telefono' => 'required|string|max:50',
+            'ciudad' => 'required|string|max:100',
+            'rut' => 'required|string|max:255',
+        ]);
+
+        Proveedor::create($request->all());
+
+        return redirect()->route('proveedores.index')
+                            ->with('success', 'Proveedor registrado correctamente.');
     }
 
     /**
-     * Display the specified resource.
+     * Mostrar formulario de edición.
      */
-    public function show(proveedor $proveedor)
+    public function edit($nit)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(proveedor $proveedor)
-    {
-        //
+        $proveedor = Proveedor::findOrFail($nit);
         return view('proveedores.create', compact('proveedor'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar proveedor.
      */
-    public function update(Request $request, proveedor $proveedor)
+    public function update(Request $request, $nit)
     {
-        //
-        $proveedor->update($request->only('nit', 'nombre', 'direccion', 'email', 'telefono', 'ciudad', 'rut'));
-        return redirect()->route('proveedores.index')->with('success', 'Proveedor actualizado exitosamente.');
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'telefono' => 'required|string|max:50',
+            'ciudad' => 'required|string|max:100',
+            'rut' => 'required|string|max:255',
+        ]);
+
+        $proveedor = Proveedor::findOrFail($nit);
+        $proveedor->update($request->except('nit')); // nit no se actualiza
+
+        return redirect()->route('proveedores.index')
+                            ->with('success', 'Proveedor actualizado correctamente.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar proveedor.
      */
-    public function destroy(proveedor $proveedor)
+    public function destroy($nit)
     {
-        //
+        $proveedor = Proveedor::findOrFail($nit);
         $proveedor->delete();
-        return redirect()->route('proveedores.index')->with('success', 'Proveedor eliminado exitosamente.');
+
+        return redirect()->route('proveedores.index')
+                         ->with('success', 'Proveedor eliminado correctamente.');
     }
 }
