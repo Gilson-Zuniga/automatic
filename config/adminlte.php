@@ -334,12 +334,12 @@ return [
         [
             'text' => 'Productos',
             'route' => 'home',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'far fa-fw fa-box',
         ],
         [
             'text' => 'Proveedores',
-            'route' => 'home',
-            'icon' => 'far fa-fw fa-file',
+            'route' => 'proveedores.index',
+            'icon' => 'far fa-fw fa-box',
         ],
         [
             'text' => 'Estadisticas',
