@@ -8,6 +8,11 @@
     
 
     <main class="container-fluid">
+        <h1 class="">Registro Proveedores</h1>
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">
+  Crear   
+</button>
         <a href="{{ route('proveedores.create') }}" class="btn btn-success mb-3 mt-3">Nuevo Proveedor</a>
         <div class="table responsive">
                 <table class="table table">
@@ -49,8 +54,6 @@
         </tbody>
     </table>
         </div>
-
-
-
     </main>
+    @include('proveedores.create')
 @endsection
