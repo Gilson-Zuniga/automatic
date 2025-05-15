@@ -6,6 +6,7 @@
     <h1>{{ isset($proveedor) ? 'Editar' : 'Registrar' }} Proveedor</h1>
 
 
+
     <form action="{{ isset($proveedor) ? route('proveedores.update', $proveedor->nit) : route('proveedores.store') }}" method="POST">
         @csrf
         @if(isset($proveedor)) @method('PUT') @endif
