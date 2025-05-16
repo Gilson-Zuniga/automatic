@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class proveedor extends Model
+class Proveedor extends Model
 {
     /** @use HasFactory<\Database\Factories\ProveedorFactory> */
     use HasFactory;
@@ -18,6 +18,10 @@ class proveedor extends Model
         'ciudad',
         'rut'
     ];
+    public function productos()
+    {
+        return $this->hasMany(Producto::class, 'proveedor_nit', 'nit');
+    }
     protected $primaryKey = 'nit'; // nit como clave primaria
     public $incrementing = false; // no es autoincremental
     protected $keyType = 'string'; // tipo de dato de la clave primaria
