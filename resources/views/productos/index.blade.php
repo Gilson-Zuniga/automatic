@@ -36,6 +36,7 @@
         <table class="table table-bordered">
             <thead class="table-primary">
                 <tr>
+                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Categoría</th>
@@ -48,6 +49,7 @@
             <tbody>
                 @foreach($productos as $producto)
                     <tr>
+                        <td>{{ $producto->id }}</td>
                         <td>{{ $producto->nombre }}</td>
                         <td>${{ number_format($producto->precio, 2) }}</td>
                         <td>{{ $producto->categoria }}/{{ $producto->tipo_articulo }}</td>
