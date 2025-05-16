@@ -86,11 +86,12 @@
                         </td>
                         <td>
                             <!-- Botón para ELIMINAR-CRUD -->
-                            <form action="{{ route('proveedores.destroy', $proveedor->nit) }}" method="POST" onsubmit="return confirm('¿Eliminar proveedor?')">
+                            <form id="form-eliminar-{{ $proveedor->nit }}" action="{{ route('proveedores.destroy', $proveedor->nit) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger">Eliminar</button>
+                                <button type="button" class="btn btn-danger" onclick="confirmarEliminacion('{{ $proveedor->nit }}')">Eliminar</button>
                             </form>
+
                         </td>
                     </tr>
                 @endforeach
@@ -98,6 +99,10 @@
         </table>
     </div>
 </main>
+<div id="flash-data" 
+    data-success="{{ session('success') }}" 
+    data-error="{{ session('error') }}">
+</div>
 
 @endsection
 
@@ -107,6 +112,8 @@
 
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 @endsection
 
 @section('plugins.Select2', true)
