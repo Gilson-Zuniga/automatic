@@ -41,25 +41,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function actualizarOpciones(valorSeleccionado = null) {
         const seleccion = categoria.value;
 
-        if (opcionesPorCategoria[seleccion]) {
-            tipoArticuloContainer.style.display = 'block';
-            tipoArticulo.innerHTML = '<option value="">Seleccione tipo</option>';
+        <select name="tipo_articulo" id="tipo_articulo" class="form-select"
+    data-seleccionado="{{ old('tipo_articulo', $producto->tipo_articulo ?? '') }}">
+</select>
 
-            opcionesPorCategoria[seleccion].forEach(opcion => {
-                const opt = document.createElement('option');
-                opt.value = opcion;
-                opt.textContent = opcion;
-
-                if (valorSeleccionado === opcion) {
-                    opt.selected = true;
-                }
-
-                tipoArticulo.appendChild(opt);
-            });
-        } else {
-            tipoArticuloContainer.style.display = 'none';
-            tipoArticulo.innerHTML = '';
-        }
     }
 
     // Ejecutar al cargar (modo editar)

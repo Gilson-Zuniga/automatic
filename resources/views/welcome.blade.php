@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <!DOCTYPE html>
 <!-- {{-- resources/views/layouts/app.blade.php --}} -->
 <!-- esto estaba en la primera linea del documento -->
@@ -38,7 +36,7 @@
                     </li>
                 </ul>
 
-                <a href="auth/login.blade.php" class="btn btn-outline-success my-2 my-sm-0" type="submit">Iniciar
+                <a href='#' class="btn btn-outline-success my-2 my-sm-0" type="submit">Iniciar
                     Sesion</a>
                 </form>
             </div>
@@ -84,4 +82,3 @@
 </body>
 
 </html>
->>>>>>> ff0027ae73abfe336bc6442ec124713a6e68792a

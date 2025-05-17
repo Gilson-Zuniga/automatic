@@ -19,7 +19,7 @@
     </select>
 </div>
 
-<div class="mb-3" id="tipo-articulo-container" style="display: none;">
+<div class="mb-3" id="tipo-articulo-container" ">
     <label for="tipo_articulo" class="form-label">Tipo de Artículo</label>
     <select name="tipo_articulo" id="tipo_articulo" class="form-select" 
     data-seleccionado="{{ old('tipo_articulo', $producto->tipo_articulo ?? '') }}">

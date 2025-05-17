@@ -334,7 +334,7 @@ return [
         [
             'text' => 'Productos',
             'route' => 'productos.index',
-            'icon' => 'far fa-fw fa-home',
+            'icon' => 'far fa-fw fa-box',
         ],
         [
             'text' => 'Proveedores',
