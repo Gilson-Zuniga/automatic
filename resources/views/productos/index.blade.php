@@ -21,7 +21,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    @include('productos._formEdit')
+                    @include('productos._form')
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
@@ -116,7 +116,7 @@
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/productos.js') }}"></script>
 @endsection
 
 @section('plugins.Select2', true)

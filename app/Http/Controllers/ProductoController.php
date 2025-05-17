@@ -45,7 +45,7 @@ class ProductoController extends Controller
             'nombre' => 'required|string|max:255',
             'precio' => 'required|numeric',
             'categoria' => 'required|string|max:255',
-            'tipo_articulo' => 'string|max:255',
+            'tipo_articulo' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'proveedor_nit' => 'required|exists:proveedores,nit',
             'foto' => 'nullable|image|max:2048',

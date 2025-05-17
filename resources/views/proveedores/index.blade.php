@@ -113,7 +113,7 @@
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/proveedores.js') }}"></script>
 @endsection
 
 @section('plugins.Select2', true)
