@@ -10,11 +10,23 @@ class ProveedorController extends Controller
     /**
      * Mostrar todos los proveedores.
      */
-    public function index()
-    {
-        $proveedores = Proveedor::all();
-        return view('proveedores.index', compact('proveedores'));
-    }
+    public function index(Request $request)
+{
+    $buscar = $request->input('buscar');
+    $perPage = $request->input('perPage', 10);
+
+    $proveedores = Proveedor::query()
+        ->when($buscar, function ($query, $buscar) {
+            $query->where('nit', $buscar)
+                ->orWhere('nombre', 'like', "%$buscar%");
+        })
+        ->orderBy('nombre', 'desc')
+        ->paginate($perPage)
+        ->appends(['buscar' => $buscar, 'perPage' => $perPage]);
+
+    return view('proveedores.index', compact('proveedores', 'buscar', 'perPage'));
+}
+
 
     /**
      * Mostrar formulario de creación.

@@ -6,11 +6,36 @@
 
 <main class="container-fluid">
     <h1>Registro Proveedores</h1>
+    <form method="GET" action="{{ route('proveedores.index') }}" class="mb-3">
+        <div class="row align-items-center g-2">
+            <!-- Columna izquierda: botón "Nuevo Producto" -->
+            <div class="col-md-6">
+                <div class="d-flex">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crear">
+                        Nuevo Provedor
+                    </button>
+                </div>
+            </div>
 
-    <!-- Botón para abrir modal CREAR -->
-    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#crear">
-        Nuevo Proveedor
-    </button>
+            <!-- Columna derecha: filtros -->
+            <div class="col-md-6">
+                <div class="d-flex justify-content-end align-items-center gap-2">
+                    <!-- Select de paginación -->
+                    <select name="perPage" class="form-select w-auto" onchange="this.form.submit()">
+                        <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
+                        <option value="20" {{ request('perPage') == 20 ? 'selected' : '' }}>20</option>
+                        <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
+                    </select>
+
+                    <!-- Input de búsqueda -->
+                    <input type="text" name="buscar" class="form-control w-auto" style="min-width: 250px;" placeholder="Buscar por ID, Nombre o Categoría" value="{{ request('buscar') }}">
+
+                    <!-- Botón buscar -->
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <!-- Modal CREAR-CRUD -->
     <div class="modal fade" id="crear" tabindex="-1" aria-labelledby="crearLabel" aria-hidden="true">
@@ -97,6 +122,11 @@
                 @endforeach
             </tbody>
         </table>
+        <!-- Paginación -->
+        <div>
+            {{ $proveedores->appends(request()->query())->links() }}
+        </div>
+    </div>
     </div>
 </main>
 <div id="flash-data" 

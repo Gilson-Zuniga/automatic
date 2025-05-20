@@ -9,11 +9,27 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $productos = Producto::with('proveedor')->get();
+        // Obtener filtro de búsqueda y cantidad por página desde la solicitud
+        $buscar = $request->input('buscar');
+        $perPage = $request->input('perPage', 10); // Valor predeterminado: 10
+
+        // Consulta con búsqueda por ID, nombre o categoría
+        $productos = Producto::with('proveedor')
+            ->when($buscar, function ($query, $buscar) {
+                $query->where('id', $buscar)
+                    ->orWhere('nombre', 'like', "%$buscar%")
+                    ->orWhere('categoria', 'like', "%$buscar%");
+            })
+            ->orderBy('id', 'desc') // Orden descendente por ID
+            ->paginate($perPage)
+            ->appends(['buscar' => $buscar, 'perPage' => $perPage]); // Mantiene filtros en la paginación
+
         $proveedores = Proveedor::all();
-        return view('productos.index', compact('productos', 'proveedores'));
+
+        // Pasamos también las variables de búsqueda y por página a la vista
+        return view('productos.index', compact('productos', 'proveedores', 'buscar', 'perPage'));
     }
 
     public function store(Request $request)
