@@ -22,7 +22,7 @@ class ProductoController extends Controller
                     ->orWhere('nombre', 'like', "%$buscar%")
                     ->orWhere('categoria', 'like', "%$buscar%");
             })
-            ->orderBy('id', 'desc') // Orden descendente por ID
+            ->latest() // Orden creacion reciente
             ->paginate($perPage)
             ->appends(['buscar' => $buscar, 'perPage' => $perPage]); // Mantiene filtros en la paginación
 

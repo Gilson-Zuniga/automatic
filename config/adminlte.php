@@ -334,10 +334,27 @@ return [
             'icon_color' => 'red',
         ],
         [
-            'text' => 'Productos',
-            'route' => 'productos.index',
-            'icon' => 'far fa-fw fa-box',
+            'text' => 'Almacen',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Productos',
+                    'route' => 'productos.index',
+                    'icon' => 'fas fa-fw fa-share',                   
+                ],
+                [
+                    'text' => 'Categorias',
+                    'route' => 'categorias.index',
+                    'icon' => 'fas fa-fw fa-share',                   
+                ],
+                [
+                    'text' => 'Inventario',
+                    'url' => '#',
+                    'icon' => 'fas fa-fw fa-share',                   
+                ],
+            ],
         ],
+
         [
             'text' => 'Proveedores',
             'route' => 'proveedores.index',

@@ -5,6 +5,8 @@
 @section('content')
 <main class="container-fluid">
     <h1>Registro Productos</h1>
+    
+    <!-- Barra de busqueda/Paginacion -->
     <form method="GET" action="{{ route('productos.index') }}" class="mb-3">
         <div class="row align-items-center g-2">
             <!-- Columna izquierda: botón "Nuevo Producto" -->
@@ -13,8 +15,13 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crear">
                         Nuevo Producto
                     </button>
+                    <button type="button" class="btn btn-secondary ml-1 d-none" data-bs-toggle="modal" data-bs-target="#crearCategoria">
+                        Nueva Categoria
+                    </button>
                 </div>
             </div>
+            
+
 
             <!-- Columna derecha: filtros -->
             <div class="col-md-6">
