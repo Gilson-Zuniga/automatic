@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use App\Models\Proveedor;
+use App\Models\Categoria;
+use App\Models\TipoArticulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,25 +13,24 @@ class ProductoController extends Controller
 {
     public function index(Request $request)
     {
-        // Obtener filtro de búsqueda y cantidad por página desde la solicitud
         $buscar = $request->input('buscar');
-        $perPage = $request->input('perPage', 10); // Valor predeterminado: 10
+        $perPage = $request->input('perPage', 10);
 
-        // Consulta con búsqueda por ID, nombre o categoría
-        $productos = Producto::with('proveedor')
+        $productos = Producto::with(['proveedor', 'categoria', 'tipoArticulo'])
             ->when($buscar, function ($query, $buscar) {
                 $query->where('id', $buscar)
-                    ->orWhere('nombre', 'like', "%$buscar%")
-                    ->orWhere('categoria', 'like', "%$buscar%");
+                    ->orWhere('nombre', 'like', "%$buscar%");
+                    // Nota: ya no se busca por "categoria" como texto.
             })
-            ->latest() // Orden creacion reciente
+            ->latest()
             ->paginate($perPage)
-            ->appends(['buscar' => $buscar, 'perPage' => $perPage]); // Mantiene filtros en la paginación
+            ->appends(['buscar' => $buscar, 'perPage' => $perPage]);
 
         $proveedores = Proveedor::all();
+        $categorias = Categoria::all();
+        $tiposArticulos = TipoArticulo::all();
 
-        // Pasamos también las variables de búsqueda y por página a la vista
-        return view('productos.index', compact('productos', 'proveedores', 'buscar', 'perPage'));
+        return view('productos.index', compact('productos', 'proveedores', 'categorias', 'tiposArticulos', 'buscar', 'perPage'));
     }
 
     public function store(Request $request)
@@ -37,14 +38,17 @@ class ProductoController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'precio' => 'required|numeric',
-            'categoria' => 'required|string|max:255',
-            'tipo_articulo' => 'required|string|max:255',
+            'categoria_id' => 'required|exists:categorias,id',
+            'tipo_articulo_id' => 'required|exists:tipo_articulos,id',
             'descripcion' => 'nullable|string',
             'proveedor_nit' => 'required|exists:proveedores,nit',
             'foto' => 'nullable|image|max:2048',
         ]);
 
-        $datos = $request->all();
+        $datos = $request->only([
+            'nombre', 'precio', 'categoria_id', 'tipo_articulo_id',
+            'descripcion', 'proveedor_nit'
+        ]);
 
         if ($request->hasFile('foto')) {
             $datos['foto'] = $request->file('foto')->store('productos', 'public');
@@ -52,7 +56,8 @@ class ProductoController extends Controller
 
         Producto::create($datos);
 
-        return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.');
+        return redirect()->route('productos.index')->with('success', 'Producto creado correctamente.');
+
     }
 
     public function update(Request $request, Producto $producto)
@@ -60,17 +65,19 @@ class ProductoController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'precio' => 'required|numeric',
-            'categoria' => 'required|string|max:255',
-            'tipo_articulo' => 'required|string|max:255',
+            'categoria_id' => 'required|exists:categorias,id',
+            'tipo_articulo_id' => 'required|exists:tipo_articulos,id',
             'descripcion' => 'nullable|string',
             'proveedor_nit' => 'required|exists:proveedores,nit',
             'foto' => 'nullable|image|max:2048',
         ]);
 
-        $datos = $request->all();
+        $datos = $request->only([
+            'nombre', 'precio', 'categoria_id', 'tipo_articulo_id',
+            'descripcion', 'proveedor_nit'
+        ]);
 
         if ($request->hasFile('foto')) {
-            // Elimina imagen anterior si existe
             if ($producto->foto && Storage::disk('public')->exists($producto->foto)) {
                 Storage::disk('public')->delete($producto->foto);
             }

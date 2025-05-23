@@ -86,7 +86,7 @@
                         <td>{{ $producto->id }}</td>
                         <td>{{ $producto->nombre }}</td>
                         <td>${{ number_format($producto->precio, 2) }}</td>
-                        <td>{{ $producto->categoria }}/{{ $producto->tipo_articulo }}</td>
+                        <td>{{ $producto->categoria->nombre ?? 'Sin categoria' }}/{{ $producto->tipoArticulo->nombre ?? '' }}</td>
                         <td>{{ $producto->descripcion }}</td>
                         <td>{{ $producto->proveedor->nombre ?? 'Sin proveedor' }}</td>
                         <td>
@@ -156,6 +156,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/productos.js') }}"></script>
+    <script>
+    window.tiposPorCategoria = @json($tiposArticulos->groupBy('categoria_id')->map(fn($items) =>
+        $items->map(fn($tipo) => ['id' => $tipo->id, 'nombre' => $tipo->nombre])
+    ));
+    </script>
+
 @endsection
 
 @section('plugins.Select2', true)

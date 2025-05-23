@@ -7,26 +7,25 @@
     <label for="precio" class="form-label">Precio</label>
     <input type="number" step="0.01" name="precio" class="form-control" value="{{ old('precio', $producto->precio ?? '') }}" required>
 </div>
-
+{{-- Categoría --}}
 <div class="mb-3">
-    <label for="categoria" class="form-label">Categoría</label>
-    <select name="categoria" id="categoria" class="form-select" required>
+    <label for="categoria_id" class="form-label">Categoría</label>
+    <select name="categoria_id" id="categoria_id" class="form-select" required>
         <option value="">Seleccione una categoría</option>
-        <option value="Tecnología" {{ old('categoria', $producto->categoria ?? '') == 'Tecnología' ? 'selected' : '' }}>Tecnología</option>
-        <option value="Papelería" {{ old('categoria', $producto->categoria ?? '') == 'Papelería' ? 'selected' : '' }}>Papelería</option>
-        <option value="Muebles" {{ old('categoria', $producto->categoria ?? '') == 'Muebles' ? 'selected' : '' }}>Muebles</option>
-        <option value="Aseo" {{ old('categoria', $producto->categoria ?? '') == 'Aseo' ? 'selected' : '' }}>Aseo</option>
+        @foreach($categorias as $categoria)
+            <option value="{{ $categoria->id }}" {{ old('categoria_id', $producto->categoria_id ?? '') == $categoria->id ? 'selected' : '' }}>
+                {{ $categoria->nombre }}
+            </option>
+        @endforeach
     </select>
 </div>
 
+{{-- Tipo de artículo --}}
 <div class="mb-3" id="tipo-articulo-container" style="display: none;">
-    <label for="tipo_articulo" class="form-label">Tipo de Artículo</label>
-    <select name="tipo_articulo" id="tipo_articulo" class="form-select"
-    data-seleccionado="{{ old('tipo_articulo', $producto->tipo_articulo ?? '') }}">
+    <label for="tipo_articulo_id" class="form-label">Tipo de Artículo</label>
+    <select name="tipo_articulo_id" id="tipo_articulo_id" class="form-select" data-seleccionado="{{ old('tipo_articulo_id', $producto->tipo_articulo_id ?? '') }}">
+        <!-- Se llena dinámicamente por JS -->
     </select>
-
-
-
 </div>
 
 

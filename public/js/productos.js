@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const successMessage = flash?.dataset.success;
     const errorMessage = flash?.dataset.error;
 
+    // Mostrar mensajes de éxito/error si existen
     if (successMessage) {
         Swal.fire({
             icon: 'success',
@@ -23,57 +24,53 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    const opcionesPorCategoria = {
-        'Tecnología': ['Celulares', 'Televisores', 'Smartwatch'],
-        'Papelería': ['Cuadernos', 'Esferos', 'Carpetas'],
-        'Muebles': ['Escritorios', 'Sillas', 'Estanterías'],
-        'Aseo': ['Jabones', 'Desinfectantes', 'Escobas']
-    };
+    // 💡 Diccionario de tipos de artículo agrupados por categoria_id (inyectado por Blade)
+    const tiposPorCategoria = window.tiposPorCategoria || {};
 
-    function actualizarOpciones(categoriaSelect, tipoArticuloSelect, seleccionado = null) {
-        const categoria = categoriaSelect.value;
-        const opciones = opcionesPorCategoria[categoria] || [];
+    // 🔁 Función para actualizar dinámicamente el select de tipo_articulo
+    function actualizarTipos(categoriaSelect, tipoSelect, seleccionado = null) {
+        const categoriaId = categoriaSelect.value;
+        const tipos = tiposPorCategoria[categoriaId] || [];
 
-        // Limpiar opciones anteriores
-        tipoArticuloSelect.innerHTML = '';
+        tipoSelect.innerHTML = ''; // limpiar opciones anteriores
 
-        opciones.forEach(opcion => {
+        tipos.forEach(tipo => {
             const option = document.createElement('option');
-            option.value = opcion;
-            option.text = opcion;
-            if (opcion === seleccionado) {
+            option.value = tipo.id;
+            option.textContent = tipo.nombre;
+            if (seleccionado && seleccionado == tipo.id) {
                 option.selected = true;
             }
-            tipoArticuloSelect.appendChild(option);
+            tipoSelect.appendChild(option);
         });
 
-        // Mostrar si hay opciones
-        const container = tipoArticuloSelect.closest('#tipo-articulo-container');
+        // Mostrar o esconder el contenedor según si hay opciones
+        const container = tipoSelect.closest('#tipo-articulo-container');
         if (container) {
-            container.style.display = opciones.length > 0 ? 'block' : 'none';
+            container.style.display = tipos.length > 0 ? 'block' : 'none';
         }
     }
 
-    // Asignar eventos a cada formulario (crear y editar)
+    // 🔗 Asociar eventos a todos los formularios (crear y editar)
     document.querySelectorAll('form').forEach(form => {
-        const categoria = form.querySelector('#categoria');
-        const tipoArticulo = form.querySelector('#tipo_articulo');
+        const categoria = form.querySelector('#categoria_id');
+        const tipo = form.querySelector('#tipo_articulo_id');
 
-        if (!categoria || !tipoArticulo) return;
+        if (!categoria || !tipo) return;
 
-        const seleccionado = tipoArticulo.getAttribute('data-seleccionado');
+        const seleccionado = tipo.getAttribute('data-seleccionado');
 
-        // Evento para actualizar dinámicamente
+        // Evento: cuando se cambia la categoría
         categoria.addEventListener('change', () => {
-            actualizarOpciones(categoria, tipoArticulo);
+            actualizarTipos(categoria, tipo);
         });
 
-        // Ejecutar al abrir modal (por si está prellenado)
-        actualizarOpciones(categoria, tipoArticulo, seleccionado);
+        // Al cargar el formulario (para precargar si ya hay selección previa)
+        actualizarTipos(categoria, tipo, seleccionado);
     });
 });
 
-// Confirmar eliminación con SweetAlert
+// 🔥 Confirmar eliminación con SweetAlert
 function confirmarEliminacion(id) {
     Swal.fire({
         title: '¿Estás seguro?',

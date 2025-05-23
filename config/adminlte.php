@@ -304,11 +304,14 @@ return [
         // Navbar items:
         [
             'type' => 'navbar-search',
+            'link' => true, 
             'text' => 'buscar',
-            'topnav_right' => true,
-        ],// Editar ruta de busqueda nav
+            'topnav_right' => false,
+            
+            
+            ],
         [
-            'text' => 'Link 1',
+            'text' => '',
             'url'=> '#',
             'topnav' => true,
         ],
@@ -336,6 +339,7 @@ return [
         [
             'text' => 'Almacen',
             'icon' => 'fas fa-fw fa-share',
+            'icon_color' => 'red',
             'submenu' => [
                 [
                     'text' => 'Productos',
@@ -359,11 +363,25 @@ return [
             'text' => 'Proveedores',
             'route' => 'proveedores.index',
             'icon' => 'far fa-fw fa-box',
+            'icon_color' => 'red',
         ],
         [
-            'text' => 'Estadisticas',
+            'text' => 'Facturacion',
             'route' => 'home',
             'icon' => 'far fa-fw fa-file',
+            'icon_color' => 'red',
+            'submenu' => [
+                [
+                    'text' => 'Clientes',
+                    'route' => 'productos.index',
+                    'icon' => 'fas fa-fw fa-share',                   
+                ],
+                [
+                    'text' => 'Proveedores',
+                    'route' => 'categorias.index',
+                    'icon' => 'fas fa-fw fa-share',                   
+                ],
+            ],
         ],
         [
             'text' => 'Historial',
@@ -379,6 +397,12 @@ return [
             'label_color' => 'success',
         ],
         ['header' => 'Configuracion de cuenta'],
+        [
+            'text' => 'Perfil Empresa',
+            'route' => 'perfilEmpresas.index',
+            'icon' => 'fas fa-fw fa-user',
+            'icon_color' => 'success',
+        ],
         [
             'text' => 'Perfil',
             'url' => 'admin/settings',

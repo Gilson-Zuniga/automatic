@@ -17,4 +17,13 @@ class Categoria extends Model
     {
         return $this->hasMany(TipoArticulo::class);
     }
+    public function productos()
+    {
+        return $this->hasMany(Producto::class);
+    }
+    public function proveedor()
+{
+    return $this->belongsTo(Proveedor::class, 'proveedor_nit', 'nit');
+}
+
 }

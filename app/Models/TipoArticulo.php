@@ -16,4 +16,8 @@ class TipoArticulo extends Model
     {
         return $this->belongsTo(Categoria::class);
     }
+    public function productos()
+    {
+        return $this->hasMany(Producto::class, 'tipo_articulo', 'id');
+    }
 }

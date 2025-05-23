@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TipoArticuloController;
+use App\Http\Controllers\PerfilEmpresaController;
 
 // Página de bienvenida
 Route::get('/', function () {
@@ -29,3 +30,6 @@ Route::resource('categorias', CategoriaController::class);
 
 // CRUD Tipos de Artículos
 Route::resource('tipoArticulos', TipoArticuloController::class);
+
+// Rutas para la gestión de perfiles de empresa
+Route::resource('perfilEmpresas', PerfilEmpresaController::class);
