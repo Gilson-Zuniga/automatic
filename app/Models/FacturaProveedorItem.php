@@ -28,4 +28,12 @@ class FacturaProveedorItem extends Model
     {
         return $this->belongsTo(Producto::class, 'producto_id');
     }
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedor::class, 'proveedor_nit', 'nit');
+    }
+    public function facturaProveedor()
+    {
+        return $this->belongsTo(FacturaProveedor::class, 'factura_id');
+    }
 }

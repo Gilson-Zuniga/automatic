@@ -112,7 +112,7 @@ class FacturaProveedorController extends Controller
     // Luego eliminar la factura
     $factura->delete();
 
-    return redirect()->route('facturas_proveedores.index')->with('success', 'Factura eliminada correctamente');
+    return response()->json(['success' => true]);
 }
 
 

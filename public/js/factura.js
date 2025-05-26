@@ -8,7 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const impuestoGeneralInput = document.getElementById("impuesto-general");
     const totalGeneralInput = document.getElementById("total-general");
 
-    // Toasts de éxito/error
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+    // Toast de SweetAlert2
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+    });
+
+    // Mostrar mensajes flash
     const flashData = document.getElementById("flash-data");
     if (flashData) {
         const success = flashData.dataset.success;
@@ -25,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return productos.map(p => `<option value="${p.id}" data-precio="${p.precio}">${p.nombre}</option>`).join('');
     }
 
-    // Agregar nueva fila
+    // Agregar ítem
     if (addItemBtn) {
         addItemBtn.addEventListener("click", () => {
             const row = document.createElement("tr");
@@ -45,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Eliminar fila
+    // Eliminar ítem
     document.addEventListener("click", e => {
         if (e.target.classList.contains("remove-item")) {
             e.target.closest("tr").remove();
@@ -53,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Actualizar precio cuando se seleccione un producto
+    // Cambiar producto → actualizar precio
     document.addEventListener("change", e => {
         if (e.target.classList.contains("producto")) {
             const select = e.target;
@@ -61,20 +71,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const precio = parseFloat(selectedOption.dataset.precio) || 0;
 
             const row = select.closest("tr");
-            const precioInput = row.querySelector(".precio");
-            precioInput.value = precio.toFixed(2);
+            row.querySelector(".precio").value = precio.toFixed(2);
 
             actualizarFila(row);
             actualizarTotales();
         }
     });
 
-    // Actualizar subtotales si cambia cantidad o precio
+    // Cambiar cantidad/precio → actualizar subtotales
     document.addEventListener("input", e => {
-        if (
-            e.target.classList.contains("cantidad") ||
-            e.target.classList.contains("precio")
-        ) {
+        if (e.target.classList.contains("cantidad") || e.target.classList.contains("precio")) {
             const row = e.target.closest("tr");
             actualizarFila(row);
             actualizarTotales();
@@ -100,12 +106,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const impuestoGeneral = subtotalGeneral * 0.19; // 19%
         const totalGeneral = subtotalGeneral + impuestoGeneral;
 
-        subtotalGeneralInput.value = subtotalGeneral.toFixed(2);
-        impuestoGeneralInput.value = impuestoGeneral.toFixed(2);
-        totalGeneralInput.value = totalGeneral.toFixed(2);
+        if (subtotalGeneralInput) subtotalGeneralInput.value = subtotalGeneral.toFixed(2);
+        if (impuestoGeneralInput) impuestoGeneralInput.value = impuestoGeneral.toFixed(2);
+        if (totalGeneralInput) totalGeneralInput.value = totalGeneral.toFixed(2);
     }
 
-    // Validar ítems y enviar JSON si es formulario de creación/edición
+    // Serializar ítems antes de enviar
     if (form) {
         form.addEventListener("submit", (e) => {
             const items = [];
@@ -130,11 +136,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (items.length === 0) {
                 e.preventDefault();
-                alert("Debe agregar al menos un ítem.");
-                return false;
+                Swal.fire("Error", "Debe agregar al menos un ítem a la factura.", "warning");
+                return;
             }
 
             itemsJsonInput.value = JSON.stringify(items);
         });
     }
+
+    // 🔥 Eliminar factura (en index)
+    document.querySelectorAll(".btn-eliminar").forEach(btn => {
+        btn.addEventListener("click", function () {
+            const facturaId = this.dataset.id;
+            const facturaNombre = this.dataset.nombre;
+
+            Swal.fire({
+                title: `¿Eliminar la factura #${facturaNombre}?`,
+                text: "Esta acción no se puede deshacer",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/facturas_proveedores/${facturaId}`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRF-TOKEN": token,
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Eliminado",
+                                text: `La factura #${facturaNombre} fue eliminada.`,
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                            // Quitar fila visualmente
+                            this.closest("tr").remove();
+                        } else {
+                            Swal.fire("Error", "No se pudo eliminar la factura.", "error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error al eliminar:", error);
+                        Swal.fire("Error", "Ocurrió un error inesperado.", "error");
+                    });
+                }
+            });
+        });
+    });
 });

@@ -3,6 +3,8 @@
 @section('title', 'Facturas de Proveedores')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 @if (session('success') || session('error'))
     <div id="flash-data"
         data-success="{{ session('success') }}"
@@ -12,10 +14,6 @@
 
 <div class="container-fluid">
     <h1 class="mb-4">Listado de Facturas de Proveedores</h1>
-
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
 
     <a href="{{ route('facturas_proveedores.create') }}" class="btn btn-primary mb-3">+ Nueva Factura</a>
 
@@ -33,7 +31,7 @@
         </thead>
         <tbody>
         @foreach ($facturas as $factura)
-            <tr>
+            <tr id="factura-row-{{ $factura->id }}">
                 <td>{{ $factura->id }}</td>
                 <td>{{ $factura->numero_factura }}</td>
                 <td>{{ $factura->fecha }}</td>
@@ -49,13 +47,11 @@
                     @endif
                 </td>
                 <td>
-                    
-                    <button class="btn btn-sm btn-danger btn-eliminar" 
-    data-id="{{ $factura->id }}" 
-    data-nombre="{{ $factura->numero_factura }}">
-    Eliminar
-</button>
-
+                    <button class="btn btn-sm btn-danger btn-eliminar"
+                        data-id="{{ $factura->id }}"
+                        data-nombre="{{ $factura->numero_factura }}">
+                        Eliminar
+                    </button>
                 </td>
             </tr>
         @endforeach
@@ -67,15 +63,8 @@
     </div>
 </div>
 @endsection
-@section('js')
-<script>
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000
-    });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{ asset('js/factura.js') }}"></script>
 
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('js/facturas_index.js') }}"></script>
+@endsection

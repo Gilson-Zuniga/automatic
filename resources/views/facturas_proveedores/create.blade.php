@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1>Crear Factura Proveedor</h1>
+    <h1>Registrar Factura Proveedor</h1>
 
     <form action="{{ route('facturas_proveedores.store') }}" method="POST" id="factura-form">
         @csrf
@@ -72,7 +72,8 @@
 
         <input type="hidden" name="items_json" id="items-json">
 
-        <button type="submit" class="btn btn-primary">Guardar Factura</button>
+        <button type="submit" class="btn btn-success">Guardar Factura</button>
+        <a href="{{ route('facturas_proveedores.index') }}" class="btn btn-danger">Cancelar</a>
     </form>
 </div>
 @endsection
