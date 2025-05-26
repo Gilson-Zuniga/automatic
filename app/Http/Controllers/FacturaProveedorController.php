@@ -105,15 +105,16 @@ class FacturaProveedorController extends Controller
     }
 
     public function destroy(FacturaProveedor $factura)
-{
-    // Eliminar primero los ítems relacionados
-    $factura->items()->delete(); // Asegúrate de tener la relación definida en el modelo
+    {
+        // Eliminar primero los ítems relacionados
+        $factura->items()->delete(); // Asegúrate de tener la relación definida en el modelo
 
-    // Luego eliminar la factura
-    $factura->delete();
+        // Luego eliminar la factura
+        $factura->delete();
 
-    return response()->json(['success' => true]);
-}
+        return redirect()->route('facturas_proveedores.index')
+                            ->with('success', 'Factura eliminada correctamente.');
+    }
 
 
     public function show(FacturaProveedor $factura)

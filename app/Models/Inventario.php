@@ -24,4 +24,10 @@ class Inventario extends Model
     {
         return $this->belongsTo(Proveedor::class, 'proveedor_nit', 'nit');
     }
+    public function facturaProveedorItems()
+    {
+        return $this->hasMany(FacturaProveedorItem::class, 'producto_id', 'producto_id')
+                    ->where('proveedor_nit', $this->proveedor_nit);
+    }
+
 }

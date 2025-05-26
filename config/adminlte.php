@@ -353,7 +353,7 @@ return [
                 ],
                 [
                     'text' => 'Inventario',
-                    'url' => '#',
+                    'route' => 'inventario.index',
                     'icon' => 'fas fa-fw fa-share',                   
                 ],
             ],

@@ -43,5 +43,9 @@ Route::resource('facturas_proveedores', FacturaProveedorController::class);
 Route::get('facturas_proveedores/{factura}/pdf', [FacturaProveedorController::class, 'downloadPdf'])
     ->name('facturas_proveedores.pdf');
 
+// Rutas para el Inventario
+Route::get('/inventario', [App\Http\Controllers\InventarioController::class, 'index'])->name('inventario.index');
+
+
 
 

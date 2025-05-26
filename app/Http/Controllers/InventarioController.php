@@ -2,64 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Invetario;
+use App\Models\Inventario;
 use Illuminate\Http\Request;
 
-class InvetarioController extends Controller
+class InventarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $query = Inventario::with(['producto', 'proveedor']);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        if ($request->filled('buscar')) {
+            $buscar = $request->buscar;
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            $query->whereHas('producto', function ($q) use ($buscar) {
+                $q->where('nombre', 'like', '%' . $buscar . '%');
+            })->orWhereHas('proveedor', function ($q) use ($buscar) {
+                $q->where('nombre', 'like', '%' . $buscar . '%')
+                ->orWhere('nit', 'like', '%' . $buscar . '%');
+            });
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(invetario $invetario)
-    {
-        //
-    }
+        $inventario = $query->paginate(10);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(invetario $invetario)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, invetario $invetario)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(invetario $invetario)
-    {
-        //
+        return view('inventario.index', compact('inventario'));
     }
 }

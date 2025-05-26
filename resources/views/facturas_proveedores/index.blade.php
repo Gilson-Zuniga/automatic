@@ -17,8 +17,8 @@
 
     <a href="{{ route('facturas_proveedores.create') }}" class="btn btn-primary mb-3">+ Nueva Factura</a>
 
-    <table class="table table-bordered table-hover">
-        <thead class="table-dark">
+    <table class="table ">
+        <thead class="table-primary">
             <tr>
                 <th>ID</th>
                 <th>Número</th>
@@ -39,7 +39,7 @@
                 <td>${{ number_format($factura->total, 2) }}</td>
                 <td>
                     @if($factura->pdf_path)
-                        <a href="{{ route('facturas_proveedores.pdf', $factura) }}" class="btn btn-sm btn-outline-secondary" target="_blank">
+                        <a href="{{ route('facturas_proveedores.pdf', $factura) }}" class="btn btn-sm btn-secondary" target="_blank">
                             Ver PDF
                         </a>
                     @else
@@ -47,11 +47,12 @@
                     @endif
                 </td>
                 <td>
-                    <button class="btn btn-sm btn-danger btn-eliminar"
-                        data-id="{{ $factura->id }}"
-                        data-nombre="{{ $factura->numero_factura }}">
-                        Eliminar
-                    </button>
+                    <!-- Botón para ELIMINAR-CRUD -->
+                            <form id="form-eliminar-{{ $factura->id }}" action="{{ route('facturas_proveedores.destroy', $factura->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" >Eliminar</button>
+                            </form>
                 </td>
             </tr>
         @endforeach

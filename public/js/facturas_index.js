@@ -1,51 +1,43 @@
-// public/js/factura_index.js
-document.addEventListener("DOMContentLoaded", () => {
-    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
 
-    document.querySelectorAll(".btn-eliminar").forEach(btn => {
-        btn.addEventListener("click", function () {
-            const facturaId = this.dataset.id;
-            const facturaNombre = this.dataset.nombre;
+document.addEventListener('DOMContentLoaded', function () {
+    const flash = document.getElementById('flash-data');
+    const successMessage = flash?.dataset.success;
+    const errorMessage = flash?.dataset.error;
 
-            Swal.fire({
-                title: `¿Eliminar la factura #${facturaNombre}?`,
-                text: "Esta acción no se puede deshacer.",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Sí, eliminar",
-                cancelButtonText: "Cancelar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    fetch(`/facturas_proveedores/${facturaId}`, {
-                        method: "DELETE",
-                        headers: {
-                            "X-CSRF-TOKEN": token,
-                            "Accept": "application/json"
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            Swal.fire({
-                                icon: "success",
-                                title: "Factura eliminada",
-                                text: `La factura #${facturaNombre} fue eliminada.`,
-                                timer: 2000,
-                                showConfirmButton: false
-                            });
-
-                            const row = document.querySelector(`#factura-row-${facturaId}`);
-                            if (row) row.remove();
-                        } else {
-                            Swal.fire("Error", "No se pudo eliminar la factura.", "error");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        Swal.fire("Error", "Ocurrió un error al eliminar.", "error");
-                    });
-                }
-            });
+    if (successMessage) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: successMessage,
+            timer: 3000,
+            showConfirmButton: false
         });
-    });
+    }
+
+    if (errorMessage) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorMessage,
+            timer: 3000,
+            showConfirmButton: false
+        });
+    }
 });
+
+function confirmarEliminacion(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción no se puede deshacer.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('form-eliminar-' + id).submit();
+        }
+    });
+}
