@@ -7,6 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TipoArticuloController;
 use App\Http\Controllers\PerfilEmpresaController;
+use App\Http\Controllers\FacturaProveedorController;
+
 
 // Página de bienvenida
 Route::get('/', function () {
@@ -33,3 +35,13 @@ Route::resource('tipoArticulos', TipoArticuloController::class);
 
 // Rutas para la gestión de perfiles de empresa
 Route::resource('perfilEmpresas', PerfilEmpresaController::class);
+
+// Rutas para Facturas de Proveedores
+
+
+Route::resource('facturas_proveedores', FacturaProveedorController::class);
+Route::get('facturas_proveedores/{factura}/pdf', [FacturaProveedorController::class, 'downloadPdf'])
+    ->name('facturas_proveedores.pdf');
+
+
+

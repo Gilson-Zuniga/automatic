@@ -367,25 +367,24 @@ return [
         ],
         [
             'text' => 'Facturacion',
-            'route' => 'home',
             'icon' => 'far fa-fw fa-file',
             'icon_color' => 'red',
             'submenu' => [
                 [
                     'text' => 'Clientes',
-                    'route' => 'productos.index',
+                    'url' => '#',
                     'icon' => 'fas fa-fw fa-share',                   
                 ],
                 [
                     'text' => 'Proveedores',
-                    'route' => 'categorias.index',
+                    'route' => 'facturas_proveedores.index',
                     'icon' => 'fas fa-fw fa-share',                   
                 ],
             ],
         ],
         [
             'text' => 'Historial',
-            'route' => 'home',
+            'url' => '#',
             'icon' => 'fas fa-fw fa-history',
             'icon_color' => 'red',
         ],
