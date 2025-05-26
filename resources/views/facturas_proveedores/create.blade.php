@@ -59,7 +59,7 @@
                 <input type="number" id="subtotal-general" class="form-control" readonly value="0">
             </div>
             <div class="col-6">
-                <label>Impuesto (19%)</label>
+                <label>IVA (19%)</label>
                 <input type="number" id="impuesto-general" class="form-control" readonly value="0">
             </div>
             <div class="col-6 mt-2">

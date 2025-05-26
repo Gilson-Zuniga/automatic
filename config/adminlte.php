@@ -337,10 +337,16 @@ return [
             'icon_color' => 'red',
         ],
         [
-            'text' => 'Almacen',
+            'text' => 'Compras',
             'icon' => 'fas fa-fw fa-share',
             'icon_color' => 'red',
             'submenu' => [
+                [
+                    'text' => 'Proveedores',
+                    'route' => 'proveedores.index',
+                    'icon' => 'far fa-fw fa-share',
+                    
+                ],
                 [
                     'text' => 'Productos',
                     'route' => 'productos.index',
@@ -351,20 +357,24 @@ return [
                     'route' => 'categorias.index',
                     'icon' => 'fas fa-fw fa-share',                   
                 ],
-                [
-                    'text' => 'Inventario',
-                    'route' => 'inventario.index',
-                    'icon' => 'fas fa-fw fa-share',                   
-                ],
+                
             ],
         ],
-
         [
-            'text' => 'Proveedores',
-            'route' => 'proveedores.index',
-            'icon' => 'far fa-fw fa-box',
-            'icon_color' => 'red',
+            'text' => 'Catalogo',
+            'url' => '#',
+            'icon' => 'fas fa-fw fa-shopping-cart',  
+            'icon_color' => 'red', 
+                            
         ],
+        [
+            'text' => 'Inventario',
+            'route' => 'inventario.index',
+            'icon' => 'fas fa-fw fa-box',  
+            'icon_color' => 'red',                 
+        ],
+
+        
         [
             'text' => 'Facturacion',
             'icon' => 'far fa-fw fa-file',

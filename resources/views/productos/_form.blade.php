@@ -4,8 +4,8 @@
 </div>
 
 <div class="mb-3">
-    <label for="precio" class="form-label">Precio</label>
-    <input type="number" step="0.01" name="precio" class="form-control" value="{{ old('precio', $producto->precio ?? '') }}" required>
+    <label for="precio" class="form-label">Precio Neto</label>
+    <input type="number" step="0.01" name="precio" class="form-control" value="{{ old('precio', $producto->precio ?? '') }}" placeholder="Valor sin Impuestos" required>
 </div>
 {{-- Categoría --}}
 <div class="mb-3">

@@ -3,6 +3,12 @@
 @section('title', 'Productos')
 
 @section('content')
+@if (session('success') || session('error'))
+    <div id="flash-data"
+        data-success="{{ session('success') }}"
+        data-error="{{ session('error') }}">
+    </div>
+@endif
 <main class="container-fluid">
     <h1>Registro Productos</h1>
     
@@ -72,7 +78,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Precio</th>
+                    <th>Precio Neto</th>
                     <th>Categoría</th>
                     <th>Descripción</th>
                     <th>Proveedor</th>

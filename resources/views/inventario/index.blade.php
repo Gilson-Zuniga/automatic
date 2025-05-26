@@ -16,7 +16,7 @@
 
     <!-- Tabla de inventario -->
     <div class="table-responsive">
-        <table class="table table-bordered table-striped">
+        <table class="table ">
             <thead class="table-primary">
                 <tr>
                     <th>ID</th>
@@ -24,7 +24,6 @@
                     <th>Proveedor</th>
                     <th>Cantidad</th>
                     <th>Precio Unitario</th>
-                    <th>Total</th>
                     <th>Actualizado</th>
                 </tr>
             </thead>
@@ -36,7 +35,6 @@
                         <td>{{ $item->proveedor->nombre ?? 'N/A' }}<br><small>{{ $item->proveedor_nit }}</small></td>
                         <td>{{ $item->cantidad }}</td>
                         <td>$ {{ number_format($item->precio_unitario, 2) }}</td>
-                        <td>$ {{ number_format($item->cantidad * $item->precio_unitario, 2) }}</td>
                         <td>{{ $item->updated_at->format('d/m/Y H:i') }}</td>
                     </tr>
                 @empty
