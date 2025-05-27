@@ -362,7 +362,7 @@ return [
         ],
         [
             'text' => 'Catalogo',
-            'url' => '#',
+            'route' => 'catalogo.index',
             'icon' => 'fas fa-fw fa-shopping-cart',  
             'icon_color' => 'red', 
                             

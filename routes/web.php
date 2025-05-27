@@ -8,7 +8,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TipoArticuloController;
 use App\Http\Controllers\PerfilEmpresaController;
 use App\Http\Controllers\FacturaProveedorController;
-
+use App\Http\Controllers\CatalogoController;
 
 // Página de bienvenida
 Route::get('/', function () {
@@ -46,6 +46,9 @@ Route::get('facturas_proveedores/{factura}/pdf', [FacturaProveedorController::cl
 // Rutas para el Inventario
 Route::get('/inventario', [App\Http\Controllers\InventarioController::class, 'index'])->name('inventario.index');
 
+
+// Rutas para el Catalogo
+Route::resource('catalogo', CatalogoController::class)->except(['show']);
 
 
 
