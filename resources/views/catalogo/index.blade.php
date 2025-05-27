@@ -37,7 +37,7 @@
                 <th>Tipo de Artículo</th>
                 <th>Foto</th>
                 <th>Cantidad</th>
-                <th>Valor</th>
+                <th>Valor <small>(IVA Incluido)</small></th>
                 <th>Descuento</th>
                 <th>Acciones</th>
             </tr>

@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Proveedor;
 use App\Models\TipoArticulo;
 use App\Models\Categoria;
+use App\Models\FacturaVentaItem;
+use App\Models\Catalogo;
+use Illuminate\Support\Facades\Auth;
+
 
 class Producto extends Model
 {
@@ -30,6 +34,14 @@ class Producto extends Model
         public function categoria(){
         
             return $this->belongsTo(Categoria::class, 'categoria_id', 'id');
+            }
+            public function catalogo()
+                {
+                    return $this->hasOne(Catalogo::class, 'producto_id', 'id');
+                }
+            public function facturaVentaItems()
+            {
+                return $this->hasMany(FacturaVentaItem::class, 'producto_id', 'id');
             }
     use HasFactory;
     protected $table = 'productos'; // nombre de la tabla

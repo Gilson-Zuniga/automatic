@@ -382,7 +382,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Clientes',
-                    'url' => '#',
+                    'route' => 'facturas_ventas.index',
                     'icon' => 'fas fa-fw fa-share',                   
                 ],
                 [

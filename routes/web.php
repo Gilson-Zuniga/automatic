@@ -9,6 +9,7 @@ use App\Http\Controllers\TipoArticuloController;
 use App\Http\Controllers\PerfilEmpresaController;
 use App\Http\Controllers\FacturaProveedorController;
 use App\Http\Controllers\CatalogoController;
+use App\Http\Controllers\FacturaVentaController;
 
 // Página de bienvenida
 Route::get('/', function () {
@@ -49,6 +50,16 @@ Route::get('/inventario', [App\Http\Controllers\InventarioController::class, 'in
 
 // Rutas para el Catalogo
 Route::resource('catalogo', CatalogoController::class)->except(['show']);
+
+// Rutas para Factura Venta
+Route::prefix('facturas_ventas')->name('facturas_ventas.')->group(function () {
+    Route::get('/', [FacturaVentaController::class, 'index'])->name('index');
+    Route::get('/crear', [FacturaVentaController::class, 'create'])->name('create');
+    Route::post('/', [FacturaVentaController::class, 'store'])->name('store');
+    Route::get('/{factura}/ver', [FacturaVentaController::class, 'show'])->name('show');
+    Route::get('/{factura}/pdf', [FacturaVentaController::class, 'descargarPDF'])->name('pdf');
+});
+
 
 
 

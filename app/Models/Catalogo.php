@@ -1,6 +1,12 @@
 <?php
 
 namespace App\Models;
+use App\Models\Producto;
+use App\Models\Proveedor;
+use App\Models\Categoria;
+use App\Models\TipoArticulo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 use Illuminate\Database\Eloquent\Model;
 
