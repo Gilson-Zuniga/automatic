@@ -19,8 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <option 
                 value="${item.id}" 
                 data-producto_id="${item.producto.id}"
-                data-precio="${item.valor}" 
-                data-descuento="${item.descuento ?? 0}"
+                data-precio="${(item.valor-(item.valor*0.19))}" 
+                data-descuento="${((item.descuento/100)*item.valor) ?? 0}"
                 data-nombre="${item.producto.nombre ?? 'Producto'}"
             >
                 ${item.producto.nombre ?? 'Producto'} - ${formatoMoneda(item.valor)}
@@ -108,12 +108,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         filas.forEach(row => {
             const subtotalText = row.querySelector(".subtotal").value.replace(/\D/g, '');
-            const subtotal = parseFloat(subtotalText) || 0;
+            const subtotal = parseFloat(subtotalText/100) || 0;
             subtotalGeneral += subtotal;
         });
 
         const impuestoGeneral = subtotalGeneral * 0.19;
-        const totalGeneral = subtotalGeneral + impuestoGeneral;
+        const totalGeneral = subtotalGeneral+impuestoGeneral ;
 
         if (subtotalGeneralInput) subtotalGeneralInput.value = formatoMoneda(subtotalGeneral);
         if (impuestoGeneralInput) impuestoGeneralInput.value = formatoMoneda(impuestoGeneral);
