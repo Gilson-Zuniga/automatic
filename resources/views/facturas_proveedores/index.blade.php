@@ -48,10 +48,12 @@
                 </td>
                 <td>
                     <!-- Botón para ELIMINAR-CRUD -->
-                            <form id="form-eliminar-{{ $factura->id }}" action="{{ route('facturas_proveedores.destroy', $factura->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('facturas_proveedores.destroy', $factura->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" >Eliminar</button>
+                                <button type="submit" class="btn btn-danger btn-sm delete-button" data-id="{{ $factura->id }}">
+                                    Eliminar
+                                </button>
                             </form>
                 </td>
             </tr>
