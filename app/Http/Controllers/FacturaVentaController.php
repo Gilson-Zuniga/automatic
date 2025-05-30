@@ -21,7 +21,7 @@ class FacturaVentaController extends Controller
 
     public function create()
     {
-        $productos = Producto::with('catalogo')->get(); // asegúrate que esta relación esté bien definida
+        $productos = Producto::with('catalogo')->get();
 
         $catalogo = $productos->map(function ($p) {
             return [

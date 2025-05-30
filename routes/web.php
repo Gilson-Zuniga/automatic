@@ -53,11 +53,11 @@ Route::resource('catalogo', CatalogoController::class)->except(['show']);
 
 // Rutas para Factura Venta
 Route::prefix('facturas_ventas')->name('facturas_ventas.')->group(function () {
-    Route::get('/', [FacturaVentaController::class, 'index'])->name('index');
-    Route::get('/crear', [FacturaVentaController::class, 'create'])->name('create');
-    Route::post('/', [FacturaVentaController::class, 'store'])->name('store');
-    Route::get('/{factura}/ver', [FacturaVentaController::class, 'show'])->name('show');
-    Route::get('/{factura}/pdf', [FacturaVentaController::class, 'descargarPDF'])->name('pdf');
+Route::get('/', [FacturaVentaController::class, 'index'])->name('index');
+Route::get('/crear', [FacturaVentaController::class, 'create'])->name('create');
+Route::post('/', [FacturaVentaController::class, 'store'])->name('store');
+Route::get('/{factura}/ver', [FacturaVentaController::class, 'show'])->name('show');
+Route::get('/{factura}/pdf', [FacturaVentaController::class, 'descargarPDF'])->name('pdf');
 });
 
 
