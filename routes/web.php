@@ -38,9 +38,8 @@ Route::resource('tipoArticulos', TipoArticuloController::class);
 Route::resource('perfilEmpresas', PerfilEmpresaController::class);
 
 // Rutas para Facturas de Proveedores
-
-
-Route::resource('facturas_proveedores', FacturaProveedorController::class);
+Route::resource('facturas_proveedores', FacturaProveedorController::class)
+    ->parameters(['facturas_proveedores' => 'factura']);
 Route::get('facturas_proveedores/{factura}/pdf', [FacturaProveedorController::class, 'downloadPdf'])
     ->name('facturas_proveedores.pdf');
 
