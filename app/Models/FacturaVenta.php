@@ -12,12 +12,13 @@ class FacturaVenta extends Model
     protected $table = 'facturas_ventas';
 
     protected $fillable = [
-        'empresa_id',
-        'numero_factura',
-        'fecha',
-        'hora'
-    ];
 
+        'empresa_id',
+        'total',
+        'pdf'
+        
+    ];
+    
     public function empresa()
     {
         return $this->belongsTo(PerfilEmpresa::class, 'empresa_id', 'nit');

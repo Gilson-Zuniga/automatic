@@ -2,6 +2,9 @@
 namespace App\Http\Controllers;
 use App\Models\FacturaProveedor;
 use App\Models\FacturaProveedorItem;
+use App\Models\FacturaVenta;
+use App\Models\FacturaVentaItem;
+use App\Models\Catalogo;
 use App\Models\Proveedor;
 use App\Models\Producto;
 use App\Models\PerfilEmpresa;
