@@ -26,3 +26,4 @@ class PerfilEmpresa extends Model
     ];
 }
 
+

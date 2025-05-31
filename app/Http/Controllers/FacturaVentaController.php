@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\FacturaVenta;
 use App\Models\FacturaVentaItem;
 use App\Models\PerfilEmpresa;
-use App\Models\Producto;
 use App\Models\Catalogo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +20,7 @@ class FacturaVentaController extends Controller
 
     public function create()
     {
-        $productos = Producto::with('catalogo')->get();
+        $productos = \App\Models\Producto::with('catalogo')->get();
 
         $catalogo = $productos->map(function ($p) {
             return [
@@ -38,7 +37,6 @@ class FacturaVentaController extends Controller
 
         $empresas = PerfilEmpresa::all();
 
-        // PASAMOS $catalogo COMO COLECCIÓN (NO JSON) para que Blade haga @json($catalogo)
         return view('facturas_ventas.create', [
             'productos' => $productos,
             'empresas' => $empresas,
@@ -48,40 +46,45 @@ class FacturaVentaController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
+
         $request->validate([
             'empresa_id' => 'required|exists:perfil_empresas,nit',
-            'items' => 'required|array|min:1',
-            'items.*.producto_id' => 'required|exists:productos,id',
-            'items.*.cantidad' => 'required|numeric|min:1',
+            'items_json' => 'required|string',
         ]);
+
+        $items = json_decode($request->items_json, true);
+        if (!is_array($items) || count($items) === 0) {
+            return redirect()->back()->withInput()->with('error', 'Debe agregar al menos un ítem a la factura.');
+        }
 
         DB::beginTransaction();
 
         try {
             $factura = FacturaVenta::create([
                 'empresa_id' => $request->empresa_id,
-                'fecha' => now(),
+                'fecha' => now()->toDateString(),
                 'hora' => now()->format('H:i:s'),
-                'total' => 0, // se calculará abajo
+                'total' => 0,
             ]);
 
             $total = 0;
 
-            foreach ($request->items as $itemData) {
-                $catalogo = Catalogo::where('producto_id', $itemData['producto_id'])->first();
+            foreach ($items as $item) {
+                $catalogo = Catalogo::where('producto_id', $item['producto_id'])->first();
 
                 if (!$catalogo) {
-                    throw new \Exception("Producto ID {$itemData['producto_id']} no existe en el catálogo.");
+                    throw new \Exception("Producto ID {$item['producto_id']} no existe en el catálogo.");
                 }
 
-                if ($catalogo->cantidad < $itemData['cantidad']) {
+                if ($catalogo->cantidad < $item['cantidad']) {
                     throw new \Exception("Stock insuficiente para el producto: {$catalogo->producto->nombre}");
                 }
 
-                $precio_unitario = $catalogo->valor;
-                $descuento = $catalogo->descuento ?? 0;
-                $cantidad = $itemData['cantidad'];
-                $impuesto = $itemData['impuesto'] ?? 0;
+                $precio_unitario = $item['precio_unitario'];
+                $descuento = $item['descuento'] ?? 0;
+                $cantidad = $item['cantidad'];
+                $impuesto = $item['impuesto'] ?? 0;
 
                 $subtotal = ($precio_unitario - $descuento) * $cantidad + $impuesto;
                 $total += $subtotal;
@@ -96,12 +99,11 @@ class FacturaVentaController extends Controller
                     'subtotal' => $subtotal,
                 ]);
 
-                // Descontar del catálogo
+                // Descontar del inventario
                 $catalogo->cantidad -= $cantidad;
                 $catalogo->save();
             }
 
-            // Generar PDF
             $factura->total = $total;
             $factura->pdf = "facturas/pdf/factura_venta_{$factura->id}.pdf";
             $factura->save();
@@ -111,10 +113,9 @@ class FacturaVentaController extends Controller
 
             DB::commit();
             return redirect()->route('facturas_ventas.index')->with('success', 'Factura registrada correctamente.');
-
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withInput()->with('error', 'Error: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Error al guardar la factura: ' . $e->getMessage());
         }
     }
 

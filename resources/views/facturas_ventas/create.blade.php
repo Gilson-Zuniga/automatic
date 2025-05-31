@@ -8,19 +8,19 @@
 
     <form id="factura-form" method="POST" action="{{ route('facturas_ventas.store') }}">
         @csrf
-
-
-
             <div class="col-md-6">
                 <label for="empresa_id">Empresa</label>
-                <select name="empresa_id" class="form-control" required>
-                    <option value="" disabled selected>Seleccione una empresa</option>
-                    @foreach ($empresas as $empresa)
-                        <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
-                    @endforeach
-                </select>
+                <div class="col-md-6 mb-3">
+                    <select name="empresa_id" id="empresa_id" class="form-control" required>
+                        <option value="" disabled selected>Seleccione una empresa</option>
+                        @foreach ($empresas as $empresa)
+                            <option value="{{ $empresa->nit }}">{{ $empresa->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
             </div>
-        </div>
+        
 
         <hr>
 
@@ -59,10 +59,11 @@
     </form>
 </div>
 @stop
-
+@section('css')
+@stop
 @section('js')
 <script>
-    const catalogo = @json($catalogo); // ← ¡CORRECTO!
+    const catalogo = @json($catalogo); 
 </script>
 <script src="{{ asset('js/factura_venta.js') }}"></script>
 @stop
