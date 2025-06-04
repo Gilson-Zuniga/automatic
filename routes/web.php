@@ -9,7 +9,7 @@ use App\Http\Controllers\TipoArticuloController;
 use App\Http\Controllers\PerfilEmpresaController;
 use App\Http\Controllers\FacturaProveedorController;
 use App\Http\Controllers\CatalogoController;
-use App\Http\Controllers\FacturaVentaController;
+use App\Http\Controllers\FacturaClienteController;
 
 use Illuminate\Support\Facades\Auth;
 // Página de bienvenida
@@ -52,13 +52,27 @@ Route::get('/inventario', [App\Http\Controllers\InventarioController::class, 'in
 Route::resource('catalogo', CatalogoController::class)->except(['show']);
 
 // Rutas para Factura Venta
-Route::prefix('facturas_ventas')->name('facturas_ventas.')->group(function () {
-Route::get('/', [FacturaVentaController::class, 'index'])->name('index');
-Route::get('/crear', [FacturaVentaController::class, 'create'])->name('create');
-Route::post('/', [FacturaVentaController::class, 'store'])->name('store');
-Route::get('/{factura}/ver', [FacturaVentaController::class, 'show'])->name('show');
-Route::get('/{factura}/pdf', [FacturaVentaController::class, 'descargarPDF'])->name('pdf');
+Route::prefix('facturas_clientes')->name('facturas_clientes.')->group(function () {
+
+    // Mostrar listado de facturas
+    Route::get('/', [FacturaClienteController::class, 'index'])->name('index');
+
+    // Mostrar formulario de creación
+    Route::get('/create', [FacturaClienteController::class, 'create'])->name('create');
+
+    // Almacenar factura nueva
+    Route::post('/', [FacturaClienteController::class, 'store'])->name('store');
+
+    // Mostrar detalle de una factura (opcional)
+    Route::get('/{factura}', [FacturaClienteController::class, 'show'])->name('show');
+
+    // Descargar el PDF de la factura
+    Route::get('/{factura}/pdf', [FacturaClienteController::class, 'descargarPDF'])->name('pdf');
+
+    // Eliminar una factura
+    Route::delete('/{factura}', [FacturaClienteController::class, 'destroy'])->name('destroy');
 });
+
 
 
 

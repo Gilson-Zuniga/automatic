@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Facturas de Venta')
+@section('title', 'Facturas de Clientes')
 
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -13,15 +13,15 @@
 @endif
 
 <div class="container-fluid">
-    <h1 class="mb-4">Listado de Facturas de Venta</h1>
+    <h1 class="mb-4">Listado de Facturas de Clientes</h1>
 
-    <a href="{{ route('facturas_ventas.create') }}" class="btn btn-primary mb-3">+ Nueva Factura</a>
+    <a href="{{ route('facturas_clientes.create') }}" class="btn btn-primary mb-3">+ Nueva Factura</a>
 
     <table class="table">
         <thead class="table-primary">
             <tr>
                 <th>ID Factura</th>
-                <th>Empresa</th>
+                <th>Cliente</th>
                 <th>Fecha</th>
                 <th>Total</th>
                 <th>PDF</th>
@@ -37,13 +37,15 @@
                 <td>${{ number_format($factura->total, 2) }}</td>
                 <td>
                     @if($factura->pdf_path)
-                        <a href="{{ route('facturas_ventas.pdf', $factura) }}" class="btn btn-sm btn-secondary" target="_blank">Ver PDF</a>
+                        <a href="{{ route('facturas_clientes.pdf', $factura) }}" class="btn btn-sm btn-secondary" target="_blank">
+                            Ver PDF
+                        </a>
                     @else
                         <span class="text-muted">No disponible</span>
                     @endif
                 </td>
                 <td>
-                    <form id="form-eliminar-{{ $factura->id }}" action="{{ route('facturas_ventas.destroy', $factura->id) }}" method="POST" style="display:inline;">
+                    <form id="form-eliminar-{{ $factura->id }}" action="{{ route('facturas_clientes.destroy', $factura->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Eliminar</button>

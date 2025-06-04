@@ -11,7 +11,6 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('factura_cliente_id'); // FK a facturas_clientes.factura_id
             $table->unsignedBigInteger('producto_id'); // FK a productos.id
-
             $table->integer('cantidad');
             $table->decimal('precio_unitario', 15, 2);
             $table->decimal('descuento', 15, 2)->default(0);

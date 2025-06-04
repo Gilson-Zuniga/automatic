@@ -383,7 +383,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Clientes',
-                    'route' => 'facturas_ventas.index',
+                    'route' => 'facturas_clientes.index',
                     'icon' => 'fas fa-user-tag',                   
                 ],
                 [

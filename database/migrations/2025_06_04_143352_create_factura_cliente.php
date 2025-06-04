@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('facturas_clientes', function (Blueprint $table) {
             $table->id(); // Clave primaria autoincremental
-            $table->number('factura_id',15);// Numero de factura
+            $table->bigInteger('factura_id');// Numero de factura
             $table->string('empresa_id', 20); // Clave foránea al NIT de perfil_empresas
             $table->decimal('total', 15, 2);
             $table->string('pdf')->nullable();

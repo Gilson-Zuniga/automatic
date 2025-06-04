@@ -1,21 +1,20 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\FacturaVenta;
-use App\Models\FacturaVentaItem;
+use App\Models\FacturaCliente;
+use App\Models\FacturaClienteItem;
 use App\Models\PerfilEmpresa;
 use App\Models\Catalogo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-class FacturaVentaController extends Controller
+class FacturaClienteController extends Controller
 {
     public function index()
     {
-        $facturas = FacturaVenta::with('empresa')->latest()->paginate(10);
-        return view('facturas_ventas.index', compact('facturas'));
+        $facturas = FacturaCliente::with('empresa')->latest()->paginate(10);
+        return view('facturas_clientes.index', compact('facturas'));
     }
 
     public function create()
@@ -37,7 +36,7 @@ class FacturaVentaController extends Controller
 
         $empresas = PerfilEmpresa::all();
 
-        return view('facturas_ventas.create', [
+        return view('facturas_clientes.create', [
             'productos' => $productos,
             'empresas' => $empresas,
             'catalogo' => $catalogo->values(),
@@ -46,7 +45,6 @@ class FacturaVentaController extends Controller
 
     public function store(Request $request)
     {
-        
         $request->validate([
             'empresa_id' => 'required|exists:perfil_empresas,nit',
             'items_json' => 'required|string',
@@ -60,10 +58,11 @@ class FacturaVentaController extends Controller
         DB::beginTransaction();
 
         try {
-            $factura = FacturaVenta::create([
+            $numeroFactura = FacturaCliente::max('numero_factura') + 1;
+
+            $factura = FacturaCliente::create([
                 'empresa_id' => $request->empresa_id,
-                'fecha' => now()->toDateString(),
-                'hora' => now()->format('H:i:s'),
+                'numero_factura' => $numeroFactura,
                 'total' => 0,
             ]);
 
@@ -88,8 +87,8 @@ class FacturaVentaController extends Controller
                 $subtotal = ($precio_unitario - $descuento) * $cantidad + $impuesto;
                 $total += $subtotal;
 
-                FacturaVentaItem::create([
-                    'factura_venta_id' => $factura->id,
+                FacturaClienteItem::create([
+                    'factura_cliente_id' => $factura->id,
                     'producto_id' => $catalogo->producto_id,
                     'cantidad' => $cantidad,
                     'precio_unitario' => $precio_unitario,
@@ -97,34 +96,30 @@ class FacturaVentaController extends Controller
                     'impuesto' => $impuesto,
                     'subtotal' => $subtotal,
                 ]);
-
-                // Descontar del inventario
-                $catalogo->cantidad -= $cantidad;
-                $catalogo->save();
             }
 
             $factura->total = $total;
-            $factura->pdf = "facturas/pdf/factura_venta_{$factura->id}.pdf";
+            $factura->pdf = "facturas/pdf/factura_cliente_{$factura->numero_factura}.pdf";
             $factura->save();
 
-            $pdf = Pdf::loadView('facturas_ventas.pdf', ['factura' => $factura->load('items.producto', 'empresa')]);
+            $pdf = Pdf::loadView('facturas_clientes.pdf', ['factura' => $factura->load('items.producto', 'empresa')]);
             $pdf->save(public_path($factura->pdf));
 
             DB::commit();
-            return redirect()->route('facturas_ventas.index')->with('success', 'Factura registrada correctamente.');
+            return redirect()->route('facturas_clientes.index')->with('success', 'Factura registrada correctamente.');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withInput()->with('error', 'Error al guardar la factura: ' . $e->getMessage());
         }
     }
 
-    public function show(FacturaVenta $factura)
+    public function show(FacturaCliente $factura)
     {
         $factura->load('empresa', 'items.producto');
-        return view('facturas_ventas.show', compact('factura'));
+        return view('facturas_clientes.show', compact('factura'));
     }
 
-    public function descargarPDF(FacturaVenta $factura)
+    public function descargarPDF(FacturaCliente $factura)
     {
         if (!$factura->pdf || !file_exists(public_path($factura->pdf))) {
             return redirect()->back()->with('error', 'PDF no encontrado.');
