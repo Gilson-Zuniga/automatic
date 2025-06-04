@@ -1,84 +1,188 @@
+@extends('adminlte::master')
+
+@section('title', 'Inicio')
+
+
+@inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
+@inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\PreloaderHelper')
+
+@section('adminlte_css')
+    @stack('css')
+    @yield('css')
+@stop
+
+@section('classes_body', $layoutHelper->makeBodyClasses())
+
+@section('body_data', $layoutHelper->makeBodyData())
+
+@section('body')
+
 <!DOCTYPE html>
-<!-- {{-- resources/views/layouts/app.blade.php --}} -->
-<!-- esto estaba en la primera linea del documento -->
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Mi Sistema</title>
-    <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sistema de Gestión de Inventario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/custom.css">
 </head>
-
-<body class="hold-transition sidebar-mini bg-dark">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">AutomatiControl</a>
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <a class="navbar-brand" href="javascript:void(0)">
+                <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/animal-2023924_640.png" alt="InventSys Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#" aria-current="page">Sobre nosotros
-                            <span class="visually-hidden">(current)</span></a>
+                        <a class="nav-link" href="#servicios">Servicios</a>
                     </li>
-
-                    <div class="dropdown-menu" aria-labelledby="dropdownId">
-                        <a class="dropdown-item" href="#">Action 1</a>
-                        <a class="dropdown-item" href="#">Action 2</a>
-                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light ms-2" href="/login" style="border-radius: 5px; padding: 0.5rem 1rem; border: 1px solid white;">Inicio de Sesión</a>
                     </li>
                 </ul>
-
-                <a href='#' class="btn btn-outline-success my-2 my-sm-0" type="submit">Iniciar
-                    Sesion</a>
-                </form>
             </div>
         </div>
     </nav>
 
-    <!------------------------------------------------------------------------------------->
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Gestión de Inventario Eficiente</h1>
+            <p>Optimiza tus operaciones con nuestro sistema integral de gestión de inventario diseñado para maximizar la eficiencia y minimizar costos</p>
+            <a href="#contacto" class="btn btn-primary btn-lg">Solicitar Demostración</a>
+        </div>
+    </section>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="text-center text-white">Bienvenido a AutomatiControl</h1>
-                <p class="text-center text-white">Tu sistema de gestión automatizado.</p>
+    <!-- Services Section -->
+    <section id="servicios" class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Servicios</h2>
             </div>
-
-            <div id="miCarrusel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-                <div class="carousel-inner" style="height: 400px;">
-                    <div class="carousel-item active">
-                        <img src="img/img1.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Imagen 1">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <div class="service-card">
+                        <i class="fas fa-boxes service-icon"></i>
+                        <h3>Gestión de Stock</h3>
+                        <p>Control en tiempo real de todos tus productos. Seguimiento detallado de entradas, salidas y niveles de stock para evitar quiebres y excesos.</p>
                     </div>
-                    <div class="carousel-item">
-                        <img src="img/img2.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Imagen 2">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <div class="service-card">
+                        <i class="fas fa-chart-line service-icon"></i>
+                        <h3>Análisis y Reportes</h3>
+                        <p>Informes detallados sobre el rendimiento del inventario. Identifica patrones, optimiza compras y reduce costos operativos.</p>
                     </div>
-                    <div class="carousel-item">
-                        <img src="img/img3.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Imagen 3">
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <i class="fas fa-mobile-alt service-icon"></i>
+                        <h3>Acceso Móvil</h3>
+                        <p>Gestiona tu inventario desde cualquier lugar con nuestra aplicación móvil. Perfecta para realizar conteos y ajustes en movimiento.</p>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contáctanos</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="name" placeholder="Nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" id="email" placeholder="Correo Electrónico" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="tel" class="form-control" id="phone" placeholder="Teléfono" required>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" id="message" rows="5" placeholder="Mensaje" required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">Enviar Mensaje</button>
+                            </div>
+                        </form>
+                        <div class="loading-spinner" id="loadingSpinner">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Cargando...</span>
+                            </div>
+                            <p class="mt-2">Enviando mensaje...</p>
+                        </div>
+                        <div class="form-response success-message" id="successMessage">
+                            <i class="fas fa-check-circle fa-2x mb-2"></i>
+                            <p>¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto.</p>
+                        </div>
+                        <div class="form-response error-message" id="errorMessage">
+                            <i class="fas fa-exclamation-circle fa-2x mb-2"></i>
+                            <p>Ha ocurrido un error. Por favor, intenta nuevamente más tarde.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/animal-2023924_640.png" alt="InventSys Logo" class="footer-logo">
+                    <p>Soluciones innovadoras para la gestión eficiente de inventario.</p>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5>Contacto</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Av. Principal 123, Ciudad</p>
+                    <p><i class="fas fa-phone me-2"></i> +123 456 7890</p>
+                    <p><i class="fas fa-envelope me-2"></i> info@inventsys.com</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Síguenos</h5>
+                    <div class="social-icons">
+                        <a href="javascript:void(0)"><i class="fab fa-facebook"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-linkedin"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2025 InventSys. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-
-        <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('js/adminlte.min.js') }}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
-            crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script id="app-script" src="../assets/js/custom.js"></script>
 </body>
-
 </html>
+
+    
+@stop
+
+@section('adminlte_js')
+    @stack('js')
+    @yield('js')
+@stop
