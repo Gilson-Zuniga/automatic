@@ -11,6 +11,7 @@ use App\Http\Controllers\FacturaProveedorController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\FacturaVentaController;
 
+use Illuminate\Support\Facades\Auth;
 // Página de bienvenida
 Route::get('/', function () {
     return view('welcome');
@@ -58,7 +59,6 @@ Route::post('/', [FacturaVentaController::class, 'store'])->name('store');
 Route::get('/{factura}/ver', [FacturaVentaController::class, 'show'])->name('show');
 Route::get('/{factura}/pdf', [FacturaVentaController::class, 'descargarPDF'])->name('pdf');
 });
-
 
 
 

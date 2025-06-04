@@ -1,7 +1,7 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Automatic Control')
+@section('title', 'Dashboard')
 
 @section('content_header')
     <h1>Tablero de trabajo</h1>
