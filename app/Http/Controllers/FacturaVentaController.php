@@ -47,7 +47,6 @@ class FacturaVentaController extends Controller
     public function store(Request $request)
     {
         
-
         $request->validate([
             'empresa_id' => 'required|exists:perfil_empresas,id',
             'items_json' => 'required|string',
@@ -63,6 +62,8 @@ class FacturaVentaController extends Controller
         try {
             $factura = FacturaVenta::create([
                 'empresa_id' => $request->empresa_id,
+                'fecha' => now()->toDateString(),
+                'hora' => now()->format('H:i:s'),
                 'total' => 0,
             ]);
 

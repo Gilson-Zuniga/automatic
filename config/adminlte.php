@@ -15,7 +15,7 @@ return [
     */
 
     'title' => '',
-    'title_prefix' => ' Work Board |',
+    'title_prefix' => ' AutomatiControl |',
     'title_postfix' => '',
 
     /*
@@ -193,12 +193,12 @@ return [
     */
     // Editar tablero
     'classes_body' => '',
-    'classes_brand' => 'bg-dark',
+    'classes_brand' => 'bg-light',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-info elevation-4',
+    'classes_sidebar' => 'sidebar-light-info elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-info navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -240,7 +240,8 @@ return [
 
     'right_sidebar' => true,
     'right_sidebar_icon' => 'fas fa-cogs',
-    'right_sidebar_theme' => 'dark',
+    'right_sidebar_theme' => 'light',
+    'right_sidebar_class' => 'control-sidebar-light',
     'right_sidebar_slide' => true,
     'right_sidebar_push' => false,
     'right_sidebar_scrollbar_theme' => 'os-theme-light',
@@ -337,25 +338,25 @@ return [
             'icon_color' => 'red',
         ],
         [
-            'text' => 'Compras',
-            'icon' => 'fas fa-fw fa-share',
+            'text' => 'Gestion Almacen',
+            'icon' => 'fas fa-warehouse',
             'icon_color' => 'red',
             'submenu' => [
                 [
                     'text' => 'Proveedores',
                     'route' => 'proveedores.index',
-                    'icon' => 'far fa-fw fa-share',
+                    'icon' => 'fas fa-truck',
                     
                 ],
                 [
                     'text' => 'Productos',
                     'route' => 'productos.index',
-                    'icon' => 'fas fa-fw fa-share',                   
+                    'icon' => 'fas fa-box',                   
                 ],
                 [
                     'text' => 'Categorias',
                     'route' => 'categorias.index',
-                    'icon' => 'fas fa-fw fa-share',                   
+                    'icon' => 'fas fa-layer-group',                  
                 ],
                 
             ],
@@ -370,25 +371,25 @@ return [
         [
             'text' => 'Inventario',
             'route' => 'inventario.index',
-            'icon' => 'fas fa-fw fa-box',  
+            'icon' => 'fas fa-boxes-stacked',  
             'icon_color' => 'red',                 
         ],
 
         
         [
             'text' => 'Facturacion',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fas fa-file-invoice-dollar',
             'icon_color' => 'red',
             'submenu' => [
                 [
                     'text' => 'Clientes',
                     'route' => 'facturas_ventas.index',
-                    'icon' => 'fas fa-fw fa-share',                   
+                    'icon' => 'fas fa-user-tag',                   
                 ],
                 [
                     'text' => 'Proveedores',
                     'route' => 'facturas_proveedores.index',
-                    'icon' => 'fas fa-fw fa-share',                   
+                    'icon' => 'fas fa-user-shield',                 
                 ],
             ],
         ],
@@ -409,13 +410,13 @@ return [
         [
             'text' => 'Perfil Empresa',
             'route' => 'perfilEmpresas.index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-building',
             'icon_color' => 'success',
         ],
         [
-            'text' => 'Perfil',
+            'text' => 'Perfil Cliente',
             'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-address-card',
         ],
         [
             'text' => 'Cambiar Contraseña',
