@@ -48,7 +48,7 @@ class FacturaVentaController extends Controller
     {
         
         $request->validate([
-            'empresa_id' => 'required|exists:perfil_empresas,id',
+            'empresa_id' => 'required|exists:perfil_empresas,nit',
             'items_json' => 'required|string',
         ]);
 
