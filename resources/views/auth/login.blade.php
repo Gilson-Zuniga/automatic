@@ -1,10 +1,12 @@
 @extends('adminlte::auth.login')
 
+@section('title', 'Iniciar Sesión')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card ">
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
@@ -70,4 +72,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/login.css') }}">
 @endsection
