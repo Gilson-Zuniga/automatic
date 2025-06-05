@@ -33,17 +33,18 @@
             <tr id="factura-row-{{ $factura->id }}">
                 <td>{{ $factura->id }}</td>
                 <td>{{ $factura->empresa->nombre ?? 'N/A' }}</td>
-                <td>{{ $factura->fecha }}</td>
+                <td>{{ $factura->created_at }}</td>
                 <td>${{ number_format($factura->total, 2) }}</td>
                 <td>
-                    @if($factura->pdf_path)
-                        <a href="{{ route('facturas_clientes.pdf', $factura) }}" class="btn btn-sm btn-secondary" target="_blank">
-                            Ver PDF
-                        </a>
+                    @if($factura->pdf && file_exists(public_path($factura->pdf)))
+                        <a href="{{ route('facturas_clientes.descargarPDF', $factura) }}" class="btn btn-sm btn-outline-primary" target="_blank">
+
                     @else
                         <span class="text-muted">No disponible</span>
                     @endif
                 </td>
+
+
                 <td>
                     <form id="form-eliminar-{{ $factura->id }}" action="{{ route('facturas_clientes.destroy', $factura->id) }}" method="POST" style="display:inline;">
                         @csrf
