@@ -1,42 +1,48 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
-
-    // SweetAlert2 Toast
-    const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-    });
-
-    // Mostrar mensajes flash
-    const flashData = document.getElementById("flash-data");
+document.addEventListener('DOMContentLoaded', function () {
+    // SweetAlert2 para mostrar mensajes flash
+    const flashData = document.getElementById('flash-data');
     if (flashData) {
         const success = flashData.dataset.success;
         const error = flashData.dataset.error;
+
         if (success) {
-            Toast.fire({ icon: "success", title: success });
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: success,
+                timer: 3000,
+                showConfirmButton: false
+            });
         }
+
         if (error) {
-            Toast.fire({ icon: "error", title: error });
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error,
+                timer: 3000,
+                showConfirmButton: false
+            });
         }
     }
 
-    // Confirmación para eliminar factura
+    // Confirmación para eliminación de factura
     document.querySelectorAll("form[id^='form-eliminar-']").forEach(form => {
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Previene el envío inmediato
 
             Swal.fire({
-                title: "¿Estás seguro?",
-                text: "Esta acción no se puede deshacer",
-                icon: "warning",
+                title: '¿Estás seguro?',
+                text: 'Esta acción eliminará la factura permanentemente.',
+                icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: "Sí, eliminar",
-                cancelButtonText: "Cancelar"
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    form.submit();
+                    form.submit(); // Enviar el formulario si se confirma
                 }
             });
         });

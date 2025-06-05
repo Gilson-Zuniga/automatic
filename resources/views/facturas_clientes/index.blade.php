@@ -38,11 +38,13 @@
                 <td>
                     @if($factura->pdf && file_exists(public_path($factura->pdf)))
                         <a href="{{ route('facturas_clientes.descargarPDF', $factura) }}" class="btn btn-sm btn-outline-primary" target="_blank">
-
+                            Ver PDF
+                        </a>
                     @else
                         <span class="text-muted">No disponible</span>
                     @endif
                 </td>
+
 
 
                 <td>
@@ -64,6 +66,8 @@
 @endsection
 
 @section('js')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/facturas_venta_index.js') }}"></script>
 @endsection

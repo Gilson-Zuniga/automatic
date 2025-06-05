@@ -52,11 +52,26 @@ Route::get('/inventario', [App\Http\Controllers\InventarioController::class, 'in
 Route::resource('catalogo', CatalogoController::class)->except(['show']);
 
 // Rutas para Factura Venta
-Route::resource('facturas_clientes', FacturaClienteController::class);
+Route::prefix('facturas_clientes')->name('facturas_clientes.')->group(function () {
 
-// Ruta adicional para descargar el PDF
-Route::get('facturas_clientes/{factura}/descargar', [FacturaClienteController::class, 'descargarPDF'])
-    ->name('facturas_clientes.descargarPDF');
+    // Mostrar listado de facturas
+    Route::get('/', [FacturaClienteController::class, 'index'])->name('index');
+
+    // Mostrar formulario de creación
+    Route::get('/create', [FacturaClienteController::class, 'create'])->name('create');
+
+    // Almacenar factura nueva
+    Route::post('/', [FacturaClienteController::class, 'store'])->name('store');
+
+    // Mostrar detalle de una factura (opcional)
+    Route::get('/{factura}', [FacturaClienteController::class, 'show'])->name('show');
+
+    // Eliminar una factura
+    Route::delete('/{factura}', [FacturaClienteController::class, 'destroy'])->name('destroy');
+    // Ruta adicional para descargar el PDF
+    Route::get('/{factura}/descargar', [FacturaClienteController::class, 'descargarPDF'])->name('descargarPDF');
+});
+
 
 
 

@@ -107,13 +107,13 @@ class FacturaClienteController extends Controller
             $factura->total = $total;
 
             // Crear carpeta si no existe
-            $carpetaPDF = public_path('facturas_clientes/pdf');
+            $carpetaPDF = public_path('facturas_ventas/pdf');
             if (!File::exists($carpetaPDF)) {
                 File::makeDirectory($carpetaPDF, 0755, true);
             }
 
-            $nombreArchivo = "factura_cliente_{$factura->numero_factura}.pdf";
-            $rutaPDF = "facturas_clientes/pdf/{$nombreArchivo}";
+            $nombreArchivo = "factura_venta_{$factura->numero_factura}.pdf";
+            $rutaPDF = "facturas_ventas/pdf/{$nombreArchivo}";
 
             // Generar PDF
             $pdf = Pdf::loadView('facturas_clientes.pdf', [
@@ -137,6 +137,19 @@ class FacturaClienteController extends Controller
     {
         $factura->load('empresa', 'items.producto');
         return view('facturas_clientes.show', compact('factura'));
+    }
+    
+    public function destroy($id)
+    {
+        $factura = FacturaCliente::findOrFail($id);
+
+        // Elimina los ítems relacionados, si los tienes
+        $factura->items()->delete();
+
+        // Elimina la factura
+        $factura->delete();
+
+        return redirect()->route('facturas_clientes.index')->with('success', 'Factura eliminada correctamente.');
     }
 
     public function descargarPDF(FacturaCliente $factura)
