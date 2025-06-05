@@ -1,0 +1,103 @@
+
+    .yellow-bg {
+      background-color: #6d9497;
+    }
+    
+    .blue-text {
+      color: #ffffff;
+    }
+    
+    .search-container {
+      position: relative;
+    }
+    
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .img-logo{
+        max-width: 200px;
+        max-height: 100px;
+
+    }
+    
+    .product-card {
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .banner-slider {
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .banner-slide {
+      flex: 0 0 100%;
+      transition: transform 0.5s ease;
+    }
+    
+    .modal-overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      overflow-y: auto;
+    }
+
+    .modal-content {
+      display: none;
+      margin: 2rem auto;
+      width: 90%;
+      max-width: 800px;
+      background-color: white;
+      border-radius: 0.5rem;
+    }
+
+    .modal-open {
+      overflow: hidden;
+    }
+
+    .tooltip {
+      position: relative;
+    }
+
+    .tooltip-text {
+      visibility: hidden;
+      width: 120px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    @media (max-width: 640px) {
+      .nav-text {
+        display: none;
+      }
+    }
+ 
