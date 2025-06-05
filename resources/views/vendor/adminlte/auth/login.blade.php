@@ -27,77 +27,70 @@
         @csrf
 
         {{-- Email field --}}
-        <div class="input-group mb-3">
-            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+        <div class="input-group mb-4">
+            <input type="email" name="email" class="form-control rounded-pill @error('email') is-invalid @enderror"
                 value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
 
             <div class="input-group-append">
-                <div class="input-group-text">
+                <div class="input-group-text bg-white border-0">
                     <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
                 </div>
             </div>
 
             @error('email')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
 
         {{-- Password field --}}
-        <div class="input-group mb-3">
-            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+        <div class="input-group mb-4">
+            <input type="password" name="password" class="form-control rounded-pill @error('password') is-invalid @enderror"
                 placeholder="{{ __('adminlte::adminlte.password') }}">
 
             <div class="input-group-append">
-                <div class="input-group-text">
+                <div class="input-group-text bg-white border-0">
                     <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
                 </div>
             </div>
 
             @error('password')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
 
-        {{-- Login field --}}
-        <div class="row">
-            <div class="col-7">
-                <div class="icheck-primary" title="{{ __('adminlte::adminlte.remember_me_hint') }}">
-                    <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                    <label for="remember">
-                        {{ __('adminlte::adminlte.remember_me') }}
-                    </label>
-                </div>
+        {{-- Remember me and login button --}}
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="icheck-primary" title="{{ __('adminlte::adminlte.remember_me_hint') }}">
+                <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                <label for="remember" class="text-sm text-muted">
+                    {{ __('adminlte::adminlte.remember_me') }}
+                </label>
             </div>
 
-            <div class="col-5">
-                <button type=submit class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
-                    <span class="fas fa-sign-in-alt"></span>
-                    {{ __('adminlte::adminlte.sign_in') }}
-                </button>
-            </div>
+            <button type="submit" class="btn rounded-pill btn-primary px-4">
+                <span class="fas fa-sign-in-alt mr-1"></span>
+                {{ __('adminlte::adminlte.sign_in') }}
+            </button>
         </div>
     </form>
 @stop
 
 @section('auth_footer')
-    {{-- Password reset link --}}
     @if($passResetUrl)
-        <p class="my-0">
-            <a href="{{ $passResetUrl }}">
+        <p class="text-center mb-1">
+            <a href="{{ $passResetUrl }}" class="text-muted">
                 {{ __('adminlte::adminlte.i_forgot_my_password') }}
             </a>
         </p>
     @endif
 
-    {{-- Register link --}}
     @if($registerUrl)
-        <p class="my-0">
-            <a href="{{ $registerUrl }}">
+        <p class="text-center">
+            <a href="{{ $registerUrl }}" class="text-muted">
                 {{ __('adminlte::adminlte.register_a_new_membership') }}
             </a>
         </p>

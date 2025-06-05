@@ -65,7 +65,10 @@ return [
     |
     */
 
-    'logo' => '<b>Automati</b><strong>C</strong>ontrol',
+
+
+    'logo' => '',
+
     'logo_img' => 'vendor/adminlte/dist/img/favicon.ico',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
