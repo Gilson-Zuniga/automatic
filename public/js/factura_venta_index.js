@@ -1,50 +1,43 @@
+// public/js/proveedores.js
 document.addEventListener('DOMContentLoaded', function () {
-    // SweetAlert2 para mostrar mensajes flash
-    const flashData = document.getElementById('flash-data');
-    if (flashData) {
-        const success = flashData.dataset.success;
-        const error = flashData.dataset.error;
+    const flash = document.getElementById('flash-data');
+    const successMessage = flash?.dataset.success;
+    const errorMessage = flash?.dataset.error;
 
-        if (success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Éxito',
-                text: success,
-                timer: 3000,
-                showConfirmButton: false
-            });
-        }
-
-        if (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: error,
-                timer: 3000,
-                showConfirmButton: false
-            });
-        }
+    if (successMessage) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: successMessage,
+            timer: 3000,
+            showConfirmButton: false
+        });
     }
 
-    // Confirmación para eliminación de factura
-    document.querySelectorAll("form[id^='form-eliminar-']").forEach(form => {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault(); // Previene el envío inmediato
-
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: 'Esta acción eliminará la factura permanentemente.',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit(); // Enviar el formulario si se confirma
-                }
-            });
+    if (errorMessage) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorMessage,
+            timer: 3000,
+            showConfirmButton: false
         });
-    });
+    }
 });
+
+function confirmarEliminacion(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción no se puede deshacer.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('form-eliminar-' + id).submit();
+        }
+    });
+}

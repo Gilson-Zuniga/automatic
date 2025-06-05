@@ -7,8 +7,8 @@
 
 @if (session('success') || session('error'))
     <div id="flash-data"
-        data-success="{{ session('success') }}"
-        data-error="{{ session('error') }}">
+         data-success="{{ session('success') }}"
+         data-error="{{ session('error') }}">
     </div>
 @endif
 
@@ -17,7 +17,7 @@
 
     <a href="{{ route('facturas_clientes.create') }}" class="btn btn-primary mb-3">+ Nueva Factura</a>
 
-    <table class="table">
+    <table class="table table-bordered table-hover">
         <thead class="table-primary">
             <tr>
                 <th>ID Factura</th>
@@ -44,15 +44,12 @@
                         <span class="text-muted">No disponible</span>
                     @endif
                 </td>
-
-
-
                 <td>
                     <form id="form-eliminar-{{ $factura->id }}" action="{{ route('facturas_clientes.destroy', $factura->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="btn btn-danger" onclick="confirmarEliminacion('{{ $factura->id }}')">Eliminar</button>
+                            </form>
                 </td>
             </tr>
         @endforeach
@@ -66,7 +63,6 @@
 @endsection
 
 @section('js')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/facturas_venta_index.js') }}"></script>
