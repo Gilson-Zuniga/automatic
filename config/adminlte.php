@@ -65,7 +65,11 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'logo' => '',
+=======
+    'logo' => '<b>Automati</b><strong>C</strong>ontrol',
+>>>>>>> 8fd06bfb401247e3fc2762b1de6dcd715b3a6c15
     'logo_img' => 'vendor/adminlte/dist/img/favicon.ico',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -383,7 +387,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Clientes',
-                    'route' => 'facturas_ventas.index',
+                    'route' => 'facturas_clientes.index',
                     'icon' => 'fas fa-user-tag',                   
                 ],
                 [

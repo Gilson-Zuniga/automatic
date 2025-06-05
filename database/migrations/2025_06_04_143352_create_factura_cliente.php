@@ -7,12 +7,11 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('facturas_ventas', function (Blueprint $table) {
-            $table->id('factura_id'); // Clave primaria autoincremental
+        Schema::create('facturas_clientes', function (Blueprint $table) {
+            $table->id(); // Clave primaria autoincremental
+            $table->bigInteger('factura_id');// Numero de factura
             $table->string('empresa_id', 20); // Clave foránea al NIT de perfil_empresas
             $table->decimal('total', 15, 2);
-            $table->date('fecha');
-            $table->time('hora');
             $table->string('pdf')->nullable();
             $table->timestamps();
 
@@ -23,6 +22,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('facturas_ventas');
+        Schema::dropIfExists('facturas_clientes');
     }
 };

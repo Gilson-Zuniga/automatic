@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FacturaVenta extends Model
+class FacturaCliente extends Model
 {
     use HasFactory;
 
-    protected $table = 'facturas_ventas';
+    protected $table = 'facturas_clientes';
 
     protected $fillable = [
         'empresa_id',
         'numero_factura',
         'total',
         'pdf',
-        'fecha',
-        'hora'
+        'created_at',
     ];
 
     public function empresa()
@@ -27,6 +26,6 @@ class FacturaVenta extends Model
 
     public function items()
     {
-        return $this->hasMany(FacturaVentaItem::class, 'factura_id');
+        return $this->hasMany(FacturaClienteItem::class, 'factura_cliente_id');
     }
 }
