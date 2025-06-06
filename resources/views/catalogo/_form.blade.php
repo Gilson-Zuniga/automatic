@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <label for="valor" class="form-label">Valor</label>
+    <label for="valor" class="form-label">Precio Venta</label>
     <input type="number" step="0.01" name="valor" class="form-control" value="{{ old('valor', $catalogo->valor ?? '') }}" >
 </div>
 

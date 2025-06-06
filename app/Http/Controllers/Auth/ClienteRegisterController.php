@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class RegisterController extends Controller
+class ClienteRegisterController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -69,12 +69,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        // Si es el primer usuario, asignar como admin, si no, como auxiliar
-        if (User::count() === 2) {
-            $user->assignRole('admin');
-        } else {
-            $user->assignRole('auxiliar');
-        }
+        $user->assignRole('cliente');
+
 
         return $user;
     }

@@ -10,6 +10,7 @@ use App\Http\Controllers\PerfilEmpresaController;
 use App\Http\Controllers\FacturaProveedorController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\FacturaClienteController;
+use App\Http\Controllers\Auth\ClienteRegisterController;
 
 use Illuminate\Support\Facades\Auth;
 // Página de bienvenida
@@ -19,6 +20,10 @@ Route::get('/', function () {
 
 // Autenticación
 Auth::routes();
+
+// Registro de clientes
+Route::get('/registro-cliente', [ClienteRegisterController::class, 'showRegistrationForm'])->name('cliente.register');
+Route::post('/registro-cliente', [ClienteRegisterController::class, 'register']);
 
 // Ruta después del login
 Route::get('/home', [HomeController::class, 'index'])->name('home');
