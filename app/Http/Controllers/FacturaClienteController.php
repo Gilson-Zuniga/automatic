@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\FacturaCliente;
@@ -8,6 +9,7 @@ use App\Models\Catalogo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\File;
 
 class FacturaClienteController extends Controller
 {
@@ -96,17 +98,35 @@ class FacturaClienteController extends Controller
                     'impuesto' => $impuesto,
                     'subtotal' => $subtotal,
                 ]);
+
+                // Descontar del catálogo
+                $catalogo->cantidad -= $cantidad;
+                $catalogo->save();
             }
 
             $factura->total = $total;
-            $factura->pdf = "facturas/pdf/factura_cliente_{$factura->numero_factura}.pdf";
-            $factura->save();
 
-            $pdf = Pdf::loadView('facturas_clientes.pdf', ['factura' => $factura->load('items.producto', 'empresa')]);
-            $pdf->save(public_path($factura->pdf));
+            // Crear carpeta si no existe
+            $carpetaPDF = public_path('facturas_ventas/pdf');
+            if (!File::exists($carpetaPDF)) {
+                File::makeDirectory($carpetaPDF, 0755, true);
+            }
+
+            $nombreArchivo = "factura_venta_{$factura->numero_factura}.pdf";
+            $rutaPDF = "facturas_ventas/pdf/{$nombreArchivo}";
+
+            // Generar PDF
+            $pdf = Pdf::loadView('facturas_clientes.pdf', [
+                'factura' => $factura->load('items.producto', 'empresa')
+            ]);
+
+            $pdf->save(public_path($rutaPDF));
+            $factura->pdf = $rutaPDF;
+            $factura->save();
 
             DB::commit();
             return redirect()->route('facturas_clientes.index')->with('success', 'Factura registrada correctamente.');
+
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withInput()->with('error', 'Error al guardar la factura: ' . $e->getMessage());
@@ -117,6 +137,19 @@ class FacturaClienteController extends Controller
     {
         $factura->load('empresa', 'items.producto');
         return view('facturas_clientes.show', compact('factura'));
+    }
+    
+    public function destroy($id)
+    {
+        $factura = FacturaCliente::findOrFail($id);
+
+        // Elimina los ítems relacionados, si los tienes
+        $factura->items()->delete();
+
+        // Elimina la factura
+        $factura->delete();
+
+        return redirect()->route('facturas_clientes.index')->with('success', 'Factura eliminada correctamente.');
     }
 
     public function descargarPDF(FacturaCliente $factura)

@@ -1,44 +1,43 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+// public/js/proveedores.js
+document.addEventListener('DOMContentLoaded', function () {
+    const flash = document.getElementById('flash-data');
+    const successMessage = flash?.dataset.success;
+    const errorMessage = flash?.dataset.error;
 
-    // SweetAlert2 Toast
-    const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-    });
-
-    // Mostrar mensajes flash
-    const flashData = document.getElementById("flash-data");
-    if (flashData) {
-        const success = flashData.dataset.success;
-        const error = flashData.dataset.error;
-        if (success) {
-            Toast.fire({ icon: "success", title: success });
-        }
-        if (error) {
-            Toast.fire({ icon: "error", title: error });
-        }
+    if (successMessage) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: successMessage,
+            timer: 3000,
+            showConfirmButton: false
+        });
     }
 
-    // Confirmación para eliminar factura
-    document.querySelectorAll("form[id^='form-eliminar-']").forEach(form => {
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            Swal.fire({
-                title: "¿Estás seguro?",
-                text: "Esta acción no se puede deshacer",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Sí, eliminar",
-                cancelButtonText: "Cancelar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
+    if (errorMessage) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorMessage,
+            timer: 3000,
+            showConfirmButton: false
         });
-    });
+    }
 });
+
+function confirmarEliminacion(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción no se puede deshacer.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('form-eliminar-' + id).submit();
+        }
+    });
+}

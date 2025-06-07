@@ -115,6 +115,18 @@
                             <p class="text-muted">Conoce de primera mano a uno de nuestros clientes: 'El software de gestión de inventario de <strong>AutomatiControl</strong> revolucionó nuestro negocio.</p>
                         </div>
                     </div>
+<<<<<<< HEAD
+=======
+                </div>
+            <a href="{{ route('ecommerce') }}" class="text-decoration-none text-dark">
+                <div class="col-lg-4 col-md-6 p-2" > 
+                    <div class="service-card">
+                        <i class="fas fa-mobile-alt service-icon"></i>
+                        <h3>Nuestros clientes</h3>
+                        <p>Gestiona tu inventario desde cualquier lugar con nuestra aplicación móvil. Perfecta para realizar conteos y ajustes en movimiento.</p>
+                    </div>
+                </div>
+>>>>>>> 7f7094e9b60450f262b4e9d5b9e16bc81992dfbf
                 </a>
             </div>
         </div>
