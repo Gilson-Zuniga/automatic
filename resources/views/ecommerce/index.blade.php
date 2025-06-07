@@ -7,7 +7,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-  <link rel="stylesheet" href="/public/assets/css/style.css">
+<!-- CSS (permanece igual) -->
+<link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+
+<!-- JS (permanece igual) -->
+<script src="{{ asset('assets/js/app.js') }}"></script>
+
 </head>
 <body class="bg-gray-100" x-data="{ 
   cartOpen: false, 
@@ -37,7 +42,8 @@
         <div class="flex items-center justify-between">
           <!-- Logo -->
            <div class="flex items-center ml-3 justify-right"> 
-            <img src="/storage/app/public/img/logo.png" class="img-logo">
+            <!-- Imágenes (permanece igual) -->
+                <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" class="logo">
            </div>
           <!--<div class="flex items-left">
             <a href="javascript:void(0)" class="text-xl md:text-2xl font-bold text-white-600">

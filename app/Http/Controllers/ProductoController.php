@@ -73,7 +73,7 @@ class ProductoController extends Controller
         ]);
 
         $datos = $request->only([
-            'nombre', 'precio', 'categoria_id', 'tipo_articulo_id',
+            'nombre', 'precio', 'categoria_id', 'tipo_articulo_id', 
             'descripcion', 'proveedor_nit'
         ]);
 

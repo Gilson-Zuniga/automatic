@@ -10,6 +10,7 @@ use App\Http\Controllers\PerfilEmpresaController;
 use App\Http\Controllers\FacturaProveedorController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\FacturaClienteController;
+use App\Http\Controllers\EcommerceController;
 
 use Illuminate\Support\Facades\Auth;
 // Página de bienvenida
@@ -37,6 +38,9 @@ Route::resource('tipoArticulos', TipoArticuloController::class);
 
 // Rutas para la gestión de perfiles de empresa
 Route::resource('perfilEmpresas', PerfilEmpresaController::class);
+
+// Rutas para la gestión de perfiles de empresa
+Route::resource('ecommerce', EcommerceController::class);
 
 // Rutas para Facturas de Proveedores
 Route::resource('facturas_proveedores', FacturaProveedorController::class)
@@ -71,7 +75,13 @@ Route::prefix('facturas_clientes')->name('facturas_clientes.')->group(function (
 
     // Eliminar una factura
     Route::delete('/{factura}', [FacturaClienteController::class, 'destroy'])->name('destroy');
+
+// routes/web.php
+Route::get('/ecommerce', function () {
+    return view('ecommerce.index'); // Cambiado de ecommerce.ecommerce a ecommerce.index
+})->name('ecommerce'); // Mantenemos el mismo nombre de ruta
 });
+
 
 
 

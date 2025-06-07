@@ -63,37 +63,63 @@
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="servicios" class="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Nuestros Servicios</h2>
+
+<!-- Services Section -->
+<section id="servicios" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-justify mb-5">
+            <h2 class="display-4 font-weight-bold">Nuestros Servicios</h2>
+        </div>
+        
+        <div class="row">
+            <!-- Gestión de Stock -->
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-boxes text-primary mb-3" style="font-size: 2.5rem;"></i>
+                        <h3 class="h4 font-weight-bold">Gestión de Stock</h3>
+                        <p class="text-muted text-justify">Control en tiempo real de todos tus productos. Seguimiento detallado de entradas, salidas y niveles de stock para evitar quiebres y excesos.</p>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <div class="service-card">
-                        <i class="fas fa-boxes service-icon"></i>
-                        <h3>Gestión de Stock</h3>
-                        <p>Control en tiempo real de todos tus productos. Seguimiento detallado de entradas, salidas y niveles de stock para evitar quiebres y excesos.</p>
+            
+            <!-- Análisis y Reportes -->
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-chart-line text-primary mb-3" style="font-size: 2.5rem;"></i>
+                        <h3 class="h4 font-weight-bold">Análisis y Reportes</h3>
+                        <p class="text-muted">Informes detallados sobre el rendimiento del inventario. Identifica patrones, optimiza compras y reduce costos operativos.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <div class="service-card">
-                        <i class="fas fa-chart-line service-icon"></i>
-                        <h3>Análisis y Reportes</h3>
-                        <p>Informes detallados sobre el rendimiento del inventario. Identifica patrones, optimiza compras y reduce costos operativos.</p>
+            </div>
+            
+            <!-- Acceso Móvil -->
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-mobile-alt text-primary mb-3" style="font-size: 2.5rem;"></i>
+                        <h3 class="h4 font-weight-bold">Acceso Móvil</h3>
+                        <p class="text-muted">Gestiona tu inventario desde cualquier lugar con nuestra aplicación móvil. Perfecta para realizar conteos y ajustes en movimiento.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-card">
-                        <i class="fas fa-mobile-alt service-icon"></i>
-                        <h3>Acceso Móvil</h3>
-                        <p>Gestiona tu inventario desde cualquier lugar con nuestra aplicación móvil. Perfecta para realizar conteos y ajustes en movimiento.</p>
+            </div>
+            
+            <!-- Nuestros clientes -->
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <a href="/ecommerce" class="text-decoration-none">
+                    <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-users text-primary mb-3" style="font-size: 2.5rem;"></i>
+                            <h3 class="h4 font-weight-bold">Nuestros clientes</h3>
+                            <p class="text-muted">Conoce de primera mano a uno de nuestros clientes: 'El software de gestión de inventario de <strong>AutomatiControl</strong> revolucionó nuestro negocio.</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Contact Section -->
     <section id="contacto" class="contact">
