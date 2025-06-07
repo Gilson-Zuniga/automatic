@@ -91,6 +91,15 @@
                         <p>Gestiona tu inventario desde cualquier lugar con nuestra aplicación móvil. Perfecta para realizar conteos y ajustes en movimiento.</p>
                     </div>
                 </div>
+            <a href="{{ route('ecommerce') }}" class="text-decoration-none text-dark">
+                <div class="col-lg-4 col-md-6 p-2" > 
+                    <div class="service-card">
+                        <i class="fas fa-mobile-alt service-icon"></i>
+                        <h3>Nuestros clientes</h3>
+                        <p>Gestiona tu inventario desde cualquier lugar con nuestra aplicación móvil. Perfecta para realizar conteos y ajustes en movimiento.</p>
+                    </div>
+                </div>
+                </a>
             </div>
         </div>
     </section>

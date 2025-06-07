@@ -11,6 +11,7 @@ use App\Http\Controllers\FacturaProveedorController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\FacturaClienteController;
 use App\Http\Controllers\Auth\ClienteRegisterController;
+use App\Http\Controllers\EcommerceController;
 
 use Illuminate\Support\Facades\Auth;
 // Página de bienvenida
@@ -76,6 +77,10 @@ Route::prefix('facturas_clientes')->name('facturas_clientes.')->group(function (
     // Ruta adicional para descargar el PDF
     Route::get('/{factura}/descargar', [FacturaClienteController::class, 'descargarPDF'])->name('descargarPDF');
 });
+
+Route::get('/ecommerce', [EcommerceController::class, 'index'])->name('ecommerce');
+
+
 
 
 
