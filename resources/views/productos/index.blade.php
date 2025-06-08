@@ -102,7 +102,7 @@
             <img src="{{ Str::startsWith($producto->foto, ['http://', 'https://']) ? $producto->foto : asset('storage/'.$producto->foto) }}" 
                  width="80" 
                  class="img-thumbnail"
-                 onerror="this.onerror=null; this.src='{{ asset('images/default-product.png') }}'"
+                 onerror="this.onerror=null; this.src='{{ asset('images/default-product.png;') }}'"
                  alt="Imagen de {{ $producto->nombre }}">
         </a>
         
@@ -114,10 +114,10 @@
                         <h5 class="modal-title">Imagen de {{ $producto->nombre }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body text-center">
+                    <div class="modal-body text-center ">
                         <img src="{{ Str::startsWith($producto->foto, ['http://', 'https://']) ? $producto->foto : asset('storage/'.$producto->foto) }}" 
                              class="img-fluid"
-                             onerror="this.onerror=null; this.src='{{ asset('images/default-product.png') }}'"
+                             onerror="this.onerror=null; this.src='{{ asset('images/default-product.png;') }}'"
                              alt="Imagen ampliada de {{ $producto->nombre }}">
                     </div>
                 </div>

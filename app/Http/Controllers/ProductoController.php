@@ -67,40 +67,44 @@ class ProductoController extends Controller
 
     }
 
-    public function update(Request $request, Producto $producto)
-    {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'precio' => 'required|numeric',
-            'categoria_id' => 'required|exists:categorias,id',
-            'tipo_articulo_id' => 'required|exists:tipo_articulos,id',
-            'descripcion' => 'nullable|string',
-            'proveedor_nit' => 'required|exists:proveedores,nit',
-            'foto' => 'nullable|image|max:2048',
-        ]);
+   public function update(Request $request, Producto $producto)
+{
+    // Validación unificada
+    $validated = $request->validate([
+        'nombre' => 'required|string|max:255',
+        'precio' => 'required|numeric',
+        'categoria_id' => 'required|exists:categorias,id',
+        'tipo_articulo_id' => 'required|exists:tipo_articulos,id',
+        'descripcion' => 'nullable|string',
+        'proveedor_nit' => 'required|exists:proveedores,nit',
+        'foto' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'foto_url' => 'nullable|sometimes|url'
+    ]);
 
-        $datos = $request->only([
-            'nombre', 'precio', 'categoria_id', 'tipo_articulo_id', 'foto',
-            'descripcion', 'proveedor_nit'
-        ]);
+    // Preparar datos para actualización
+    $data = $request->except('foto', 'foto_url');
 
-        $request->validate([
-            'foto' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048', // Para archivos
-            // O para URLs:
-            'foto_url' => 'nullable|sometimes|url' // Si aceptas URLs externas
-        ]);
-
-        if ($request->hasFile('foto')) {
-            if ($producto->foto && Storage::disk('public')->exists($producto->foto)) {
-                Storage::disk('public')->delete($producto->foto);
-            }
-            $datos['foto'] = $request->file('foto')->store('productos', 'public');
+    // Manejo de imágenes:
+    // 1. Si se sube nueva imagen
+    if ($request->hasFile('foto')) {
+        // Eliminar imagen anterior si existe
+        if ($producto->foto && !Str::startsWith($producto->foto, ['http://', 'https://'])) {
+            Storage::disk('public')->delete($producto->foto);
         }
-
-        $producto->update($datos);
-
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente.');
+        $data['foto'] = $request->file('foto')->store('productos', 'public');
     }
+    // 2. Si se proporciona nueva URL
+    elseif ($request->filled('foto_url')) {
+        $data['foto'] = $request->foto_url;
+    }
+    // 3. Si no se proporciona nada, mantener la existente (no hacer nada)
+
+    // Actualizar el producto
+    $producto->update($data);
+
+    return redirect()->route('productos.index')
+           ->with('success', 'Producto actualizado correctamente.');
+}
 
     public function destroy(Producto $producto)
     {
