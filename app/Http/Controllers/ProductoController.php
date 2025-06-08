@@ -8,6 +8,7 @@ use App\Models\Categoria;
 use App\Models\TipoArticulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ProductoController extends Controller
 {
@@ -35,28 +36,34 @@ class ProductoController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'precio' => 'required|numeric',
-            'categoria_id' => 'required|exists:categorias,id',
-            'tipo_articulo_id' => 'required|exists:tipo_articulos,id',
-            'descripcion' => 'nullable|string',
-            'proveedor_nit' => 'required|exists:proveedores,nit',
-            'foto' => 'nullable|image|max:2048',
-        ]);
+   $rules = [
+        'nombre' => 'required',
+        'foto' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'foto_url' => 'nullable|sometimes|url'
+    ];
 
-        $datos = $request->only([
-            'nombre', 'precio', 'categoria_id', 'tipo_articulo_id',
-            'descripcion', 'proveedor_nit'
-        ]);
+    $validator = Validator::make($request->all(), $rules);
 
-        if ($request->hasFile('foto')) {
-            $datos['foto'] = $request->file('foto')->store('productos', 'public');
-        }
+    if ($validator->fails()) {
+        return back()->withErrors($validator)->withInput();
+    }
 
-        Producto::create($datos);
+    $data = $request->except('foto', 'foto_url');
 
-        return redirect()->route('productos.index')->with('success', 'Producto creado correctamente.');
+    // Prioridad 1: Archivo subido
+    if ($request->hasFile('foto')) {
+        $data['foto'] = $request->file('foto')->store('productos', 'public');
+    } 
+    // Prioridad 2: URL proporcionada
+    elseif ($request->filled('foto_url')) {
+        $data['foto'] = $request->foto_url;
+    }
+    // Si no hay nada, se mantendrá como null
+
+    Producto::create($data);
+
+    return redirect()->route('productos.index')
+           ->with('success', 'Producto creado correctamente');
 
     }
 
@@ -73,8 +80,14 @@ class ProductoController extends Controller
         ]);
 
         $datos = $request->only([
-            'nombre', 'precio', 'categoria_id', 'tipo_articulo_id', 
+            'nombre', 'precio', 'categoria_id', 'tipo_articulo_id', 'foto',
             'descripcion', 'proveedor_nit'
+        ]);
+
+        $request->validate([
+            'foto' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048', // Para archivos
+            // O para URLs:
+            'foto_url' => 'nullable|sometimes|url' // Si aceptas URLs externas
         ]);
 
         if ($request->hasFile('foto')) {

@@ -7,24 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proveedor extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProveedorFactory> */
     use HasFactory;
+
+    // Nombre de la tabla (opcional si sigue convención de Laravel)
+    protected $table = 'proveedores';
+
+    // Campos asignables masivamente
     protected $fillable = [
         'nit',
         'nombre',
         'direccion',
-        'email', 
+        'email',
         'telefono',
         'ciudad',
         'rut'
     ];
-    public function productos()
-    {
-        return $this->hasMany(Producto::class, 'proveedor_nit', 'nit');
-    }
-    protected $primaryKey = 'nit'; // nit como clave primaria
-    public $incrementing = false; // no es autoincremental
-    protected $keyType = 'string'; // tipo de dato de la clave primaria
-    public $timestamps = false; // habilitar timestamps
-    protected $table = 'proveedores'; // nombre de la tabla
+
+    // Campos ocultos en arrays
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
+    // Tipos de atributos
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
+    ];
 }

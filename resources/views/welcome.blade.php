@@ -33,7 +33,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="javascript:void(0)">
-                <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/animal-2023924_640.png" alt="InventSys Logo">
+                <!--<img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/animal-2023924_640.png" alt="InventSys Logo">-->
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -114,20 +114,8 @@
                             <h3 class="h4 font-weight-bold">Nuestros clientes</h3>
                             <p class="text-muted">Conoce de primera mano a uno de nuestros clientes: 'El software de gestión de inventario de <strong>AutomatiControl</strong> revolucionó nuestro negocio.</p>
                         </div>
-                    </div>
-<<<<<<< HEAD
-=======
+                    </div></a>
                 </div>
-            <a href="{{ route('ecommerce') }}" class="text-decoration-none text-dark">
-                <div class="col-lg-4 col-md-6 p-2" > 
-                    <div class="service-card">
-                        <i class="fas fa-mobile-alt service-icon"></i>
-                        <h3>Nuestros clientes</h3>
-                        <p>Gestiona tu inventario desde cualquier lugar con nuestra aplicación móvil. Perfecta para realizar conteos y ajustes en movimiento.</p>
-                    </div>
-                </div>
->>>>>>> 7f7094e9b60450f262b4e9d5b9e16bc81992dfbf
-                </a>
             </div>
         </div>
     </div>
@@ -184,7 +172,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0">
-                    <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/animal-2023924_640.png" alt="InventSys Logo" class="footer-logo">
+                    <!--<img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/animal-2023924_640.png" alt="InventSys Logo" class="footer-logo">-->
                     <p>Soluciones innovadoras para la gestión eficiente de inventario.</p>
                 </div>
                 <div class="col-lg-4 mb-4 mb-lg-0">

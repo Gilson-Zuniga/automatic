@@ -10,10 +10,7 @@ use App\Http\Controllers\PerfilEmpresaController;
 use App\Http\Controllers\FacturaProveedorController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\FacturaClienteController;
-<<<<<<< HEAD
-=======
 use App\Http\Controllers\Auth\ClienteRegisterController;
->>>>>>> 7f7094e9b60450f262b4e9d5b9e16bc81992dfbf
 use App\Http\Controllers\EcommerceController;
 
 use Illuminate\Support\Facades\Auth;
@@ -80,20 +77,21 @@ Route::prefix('facturas_clientes')->name('facturas_clientes.')->group(function (
 
     // Eliminar una factura
     Route::delete('/{factura}', [FacturaClienteController::class, 'destroy'])->name('destroy');
-<<<<<<< HEAD
+
 
 // routes/web.php
 Route::get('/ecommerce', function () {
     return view('ecommerce.index'); // Cambiado de ecommerce.ecommerce a ecommerce.index
 })->name('ecommerce'); // Mantenemos el mismo nombre de ruta
-=======
+
     // Ruta adicional para descargar el PDF
     Route::get('/{factura}/descargar', [FacturaClienteController::class, 'descargarPDF'])->name('descargarPDF');
->>>>>>> 7f7094e9b60450f262b4e9d5b9e16bc81992dfbf
+
+    
+
 });
 
 Route::get('/ecommerce', [EcommerceController::class, 'index'])->name('ecommerce');
-
 
 
 

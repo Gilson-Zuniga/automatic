@@ -1,3 +1,5 @@
+<form method="POST" enctype="multipart/form-data">
+<!-- El atributo enctype es esencial para subir archivos -->
 <div class="mb-3">
     <label for="nombre" class="form-label">Nombre</label>
     <input type="text" name="nombre" class="form-control" value="{{ old('nombre', $producto->nombre ?? '') }}" required>
@@ -47,10 +49,20 @@
     </select>
 </div>
 
-<div class="mb-3">
-    <label for="foto" class="form-label">Imagen</label>
-    <input type="file" name="foto" class="form-control" accept="image/*">
-    @if (!empty($producto->foto))
-        <img src="{{ asset('storage/' . $producto->foto) }}" alt="Imagen" width="100" class="mt-2">
-    @endif
+<div class="form-group">
+    <label>Subir imagen o ingresar URL</label>
+    <div class="row">
+        <div class="col-md-6">
+            <input type="file" class="form-control" name="foto" accept="image/*">
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-text">URL</span>
+                <input type="text" class="form-control" name="foto_url" 
+                       placeholder="https://ejemplo.com/imagen.jpg"
+                       value="{{ old('foto_url', $producto->foto ?? '') }}">
+            </div>
+        </div>
+    </div>
 </div>
+

@@ -2,22 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
 
 class TipoArticulo extends Model
 {
-    protected $fillable = ['nombre', 'categoria_id'];
-    protected $table = 'tipo_articulos'; // nombre de la tabla
-    protected $primaryKey = 'id'; // clave primaria 
+    use HasFactory;
+
+    protected $table = 'tipo_articulos';
+
+    protected $fillable = [
+        'nombre',
+        'categoria_id'
+    ];
 
     public function categoria()
     {
         return $this->belongsTo(Categoria::class);
     }
+
     public function productos()
     {
-        return $this->hasMany(Producto::class, 'tipo_articulo', 'id');
+        return $this->hasMany(Producto::class, 'tipo_articulo_id');
     }
 }

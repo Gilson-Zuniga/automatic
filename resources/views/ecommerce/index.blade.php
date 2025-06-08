@@ -7,16 +7,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-<<<<<<< HEAD
+
 <!-- CSS (permanece igual) -->
 <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
 <!-- JS (permanece igual) -->
 <script src="{{ asset('assets/js/app.js') }}"></script>
 
-=======
+
   <link rel="stylesheet" href="{{ asset('assets/css/ecommerce.css') }}">
->>>>>>> 7f7094e9b60450f262b4e9d5b9e16bc81992dfbf
+
 </head>
 <body class="bg-gray-100" x-data="{ 
   cartOpen: false, 

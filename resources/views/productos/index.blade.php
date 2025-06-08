@@ -95,13 +95,40 @@
                         <td>{{ $producto->categoria->nombre ?? 'Sin categoria' }}/{{ $producto->tipoArticulo->nombre ?? '' }}</td>
                         <td>{{ $producto->descripcion }}</td>
                         <td>{{ $producto->proveedor->nombre ?? 'Sin proveedor' }}</td>
-                        <td>
-                            @if($producto->foto)
-                                <img src="{{ asset('storage/' . $producto->foto) }}" width="80">
-                            @else
-                                Sin imagen
-                            @endif
-                        </td>
+                        
+<td>
+    @if($producto->foto)
+        <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal{{ $producto->id }}">
+            <img src="{{ Str::startsWith($producto->foto, ['http://', 'https://']) ? $producto->foto : asset('storage/'.$producto->foto) }}" 
+                 width="80" 
+                 class="img-thumbnail"
+                 onerror="this.onerror=null; this.src='{{ asset('images/default-product.png') }}'"
+                 alt="Imagen de {{ $producto->nombre }}">
+        </a>
+        
+        <!-- Modal para imagen ampliada -->
+        <div class="modal fade" id="imageModal{{ $producto->id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Imagen de {{ $producto->nombre }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img src="{{ Str::startsWith($producto->foto, ['http://', 'https://']) ? $producto->foto : asset('storage/'.$producto->foto) }}" 
+                             class="img-fluid"
+                             onerror="this.onerror=null; this.src='{{ asset('images/default-product.png') }}'"
+                             alt="Imagen ampliada de {{ $producto->nombre }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    @else
+        <img src="{{ asset('images/default-product.png') }}" 
+             width="80"
+             alt="Imagen por defecto">
+    @endif
+</td>
                         <td>
                             <!-- Botón para abrir modal EDITAR -->
                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editar{{ $producto->id }}">

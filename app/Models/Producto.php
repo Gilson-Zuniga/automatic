@@ -21,7 +21,8 @@ class Producto extends Model
         'tipo_articulo_id', 
         'foto', 
         'descripcion', 
-        'proveedor_nit'
+        'proveedor_nit',
+        'foto' 
         ];
         public function proveedor(){
         
