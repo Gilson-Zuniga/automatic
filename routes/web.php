@@ -10,11 +10,8 @@ use App\Http\Controllers\PerfilEmpresaController;
 use App\Http\Controllers\FacturaProveedorController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\FacturaClienteController;
-<<<<<<< HEAD
-=======
-use App\Http\Controllers\Auth\ClienteRegisterController;
->>>>>>> 7f7094e9b60450f262b4e9d5b9e16bc81992dfbf
 use App\Http\Controllers\EcommerceController;
+use App\Http\Controllers\ClienteRegisterController;
 
 use Illuminate\Support\Facades\Auth;
 // Página de bienvenida
@@ -24,7 +21,16 @@ Route::get('/', function () {
 
 // Autenticación
 Auth::routes();
-
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Aquí es donde puedes registrar las rutas web para tu aplicación. Estas
+| rutas son cargadas por el RouteServiceProvider dentro de un grupo que
+| contiene el grupo de middleware "web". ¡Ahora crea algo grandioso!
+|
+*/
 // Registro de clientes
 Route::get('/registro-cliente', [ClienteRegisterController::class, 'showRegistrationForm'])->name('cliente.register');
 Route::post('/registro-cliente', [ClienteRegisterController::class, 'register']);
@@ -46,8 +52,8 @@ Route::resource('tipoArticulos', TipoArticuloController::class);
 
 // Rutas para la gestión de perfiles de empresa
 Route::resource('perfilEmpresas', PerfilEmpresaController::class);
-
-// Rutas para la gestión de perfiles de empresa
+// Rutas para la gestión de ecommerce
+Route::resource('ecommerce', EcommerceController::class)->except(['index']);
 Route::resource('ecommerce', EcommerceController::class);
 
 // Rutas para Facturas de Proveedores
@@ -80,17 +86,13 @@ Route::prefix('facturas_clientes')->name('facturas_clientes.')->group(function (
 
     // Eliminar una factura
     Route::delete('/{factura}', [FacturaClienteController::class, 'destroy'])->name('destroy');
-<<<<<<< HEAD
 
-// routes/web.php
-Route::get('/ecommerce', function () {
-    return view('ecommerce.index'); // Cambiado de ecommerce.ecommerce a ecommerce.index
+// Eliminado: ruta innecesaria y conflictiva para /ecommerce
 })->name('ecommerce'); // Mantenemos el mismo nombre de ruta
-=======
+
     // Ruta adicional para descargar el PDF
     Route::get('/{factura}/descargar', [FacturaClienteController::class, 'descargarPDF'])->name('descargarPDF');
->>>>>>> 7f7094e9b60450f262b4e9d5b9e16bc81992dfbf
-});
+
 
 Route::get('/ecommerce', [EcommerceController::class, 'index'])->name('ecommerce');
 
