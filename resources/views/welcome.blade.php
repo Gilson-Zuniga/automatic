@@ -114,9 +114,16 @@
                             <h3 class="h4 font-weight-bold">Nuestros clientes</h3>
                             <p class="text-muted">Conoce de primera mano a uno de nuestros clientes: 'El software de gestión de inventario de <strong>AutomatiControl</strong> revolucionó nuestro negocio.</p>
                         </div>
+
                     </div></a>
                 </div>
             </div>
+
+                    </div>
+                </div>
+
+            
+
         </div>
     </div>
 </section>

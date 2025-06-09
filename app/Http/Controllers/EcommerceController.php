@@ -10,4 +10,5 @@ class EcommerceController extends Controller
     {
         return view('ecommerce.index');
     }
+
 }
