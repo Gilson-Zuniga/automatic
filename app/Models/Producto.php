@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Proveedor;
 use App\Models\TipoArticulo;
 use App\Models\Categoria;
-use App\Models\FacturaVentaItem;
+use App\Models\FacturaClienteItem;
 use App\Models\Catalogo;
-use Illuminate\Support\Facades\Auth;
+
 
 
 class Producto extends Model
@@ -42,7 +42,7 @@ class Producto extends Model
                 }
             public function facturaVentaItems()
             {
-                return $this->hasMany(FacturaVentaItem::class, 'producto_id', 'id');
+                return $this->hasMany(FacturaClienteitem::class, 'producto_id', 'id');
             }
     use HasFactory;
     protected $table = 'productos'; // nombre de la tabla
