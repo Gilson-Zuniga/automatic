@@ -13,6 +13,7 @@ use App\Http\Controllers\FacturaClienteController;
 use App\Http\Controllers\EcommerceController;
 use App\Http\Controllers\ClienteRegisterController;
 
+
 use Illuminate\Support\Facades\Auth;
 // Página de bienvenida
 Route::get('/', function () {
@@ -91,11 +92,9 @@ Route::prefix('facturas_clientes')->name('facturas_clientes.')->group(function (
 
 });
 
-Route::get('/ecommerce', [EcommerceController::class, 'index'])->name('ecommerce');
+//Ruta para mostrar productos en la vista de ecommerce
+Route::get('/ecommerce', [ProductoController::class, 'indexPublic'])->name('ecommerce.index');
 
-
-
-
-
-
-
+// Ruta Botones de acción en la vista de ecommerce
+Route::post('/carrito/agregar', [CarritoController::class, 'agregar']);
+Route::post('/orden/crear', [OrdenController::class, 'crear']);

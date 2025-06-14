@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProductoController extends Controller
+
 {
     public function index(Request $request)
     {
@@ -116,4 +117,11 @@ class ProductoController extends Controller
 
         return redirect()->route('productos.index')->with('success', 'Producto eliminado correctamente.');
     }
+
+    //Mostrar productos en la vista de ecommerce
+    public function indexPublic()
+        {
+            $products = Producto::all(); 
+            return view('ecommerce.index', compact('products'));
+        }
 }
