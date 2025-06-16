@@ -15,10 +15,7 @@ use App\Http\Controllers\ClienteRegisterController;
 
 
 use Illuminate\Support\Facades\Auth;
-// Página de bienvenida
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ProductoController::class, 'indexPublic'])->name('homepage');
 
 // Autenticación
 Auth::routes();
