@@ -95,3 +95,7 @@ Route::get('/ecommerce', [ProductoController::class, 'indexPublic'])->name('ecom
 // Ruta Botones de acción en la vista de ecommerce
 Route::post('/carrito/agregar', [CarritoController::class, 'agregar']);
 Route::post('/orden/crear', [OrdenController::class, 'crear']);
+
+Route::get('/bienvenida', function(){
+    return view('welcome');
+})->name('welcome');
